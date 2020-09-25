@@ -269,7 +269,12 @@ class CRCServer(object):
     # other sockets we've opened, and with our selector. Use this function to accomplish this
     # TODO: Perform any cleanup required upon termination of the program. This includes both sockets and your selector 
     def cleanup(self):
-        pass
+        select_keys = list(self.sel._fd_to_key.values())
+        for key in select_keys:
+            key.fileobj.close()
+            self.sel.unregister(key.fileobj)
+
+
 
 
 
