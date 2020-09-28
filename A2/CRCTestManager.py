@@ -105,7 +105,7 @@ if __name__ == "__main__":
 
     basic_connection_tests = {
         'NetworkConnectivity_1_TwoServers':5, 
-        'NetworkConnectivity_2_FourServers':5, 
+        #'NetworkConnectivity_2_FourServers':5,
         'NetworkConnectivity_3_EightServers':5, 
     }
     message_parsing_tests = {

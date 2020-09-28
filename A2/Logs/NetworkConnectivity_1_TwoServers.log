@@ -9,9 +9,9 @@ Beginning test NetworkConnectivity_1_TwoServers
 *CMD.........	Starting --servername rivendale.nz --port 1112 --info "Elrond's House" --log-file rivendale.log --connect_to_host theshire.nz --connect_to_port 1111
 [rivendale.nz] 	Launching server rivendale.nz...
 *CMD.........	Waiting... 0.5
+[theshire.nz] 	Accepted a connection from another server
 [rivendale.nz] 	Connected to another server
 [rivendale.nz] 	Listening for new connections on port 1112
-[theshire.nz] 	Accepted a connection from another server
 [theshire.nz] 	Received SERVER rivendale.nz 1 :"Elrond's House"
 
 

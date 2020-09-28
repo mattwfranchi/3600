@@ -18,32 +18,32 @@ Beginning test NetworkConnectivity_3_EightServers
 [mirkwood.nz] 	Launching server mirkwood.nz...
 *CMD.........	Waiting... 0.5
 [rivendale.nz] 	Accepted a connection from another server
-[mirkwood.nz] 	Connected to another server
-[mirkwood.nz] 	Listening for new connections on port 6556
 [rivendale.nz] 	Received SERVER mirkwood.nz 1 :"Wood of Greenleaves"
 
+[mirkwood.nz] 	Connected to another server
+[mirkwood.nz] 	Listening for new connections on port 6556
 *CMD.........	Starting --servername lothlorin.nz --port 7556 --info "The Golden Wood" --log-file lothlorien.log --connect_to_host mirkwood.nz --connect_to_port 6556
 [lothlorin.nz] 	Launching server lothlorin.nz...
 *CMD.........	Waiting... 0.5
-[mirkwood.nz] 	Accepted a connection from another server
 [lothlorin.nz] 	Connected to another server
 [lothlorin.nz] 	Listening for new connections on port 7556
+[mirkwood.nz] 	Accepted a connection from another server
 [mirkwood.nz] 	Received SERVER lothlorin.nz 1 :"The Golden Wood"
 
 *CMD.........	Starting --servername isengard.nz --port 6557 --info "Orthanc" --log-file isengard.log --connect_to_host rivendale.nz --connect_to_port 6445
 [isengard.nz] 	Launching server isengard.nz...
 *CMD.........	Waiting... 0.5
 [isengard.nz] 	Connected to another server
-[rivendale.nz] 	Accepted a connection from another server
 [isengard.nz] 	Listening for new connections on port 6557
+[rivendale.nz] 	Accepted a connection from another server
 [rivendale.nz] 	Received SERVER isengard.nz 1 :"Orthanc"
 
 *CMD.........	Starting --servername minastiri.nz --port 5557 --info "Tower of Guard" --log-file minastirith.log --connect_to_host theshire.nz --connect_to_port 3563
 [minastiri.nz] 	Launching server minastiri.nz...
 *CMD.........	Waiting... 0.5
+[theshire.nz] 	Accepted a connection from another server
 [minastiri.nz] 	Connected to another server
 [minastiri.nz] 	Listening for new connections on port 5557
-[theshire.nz] 	Accepted a connection from another server
 [theshire.nz] 	Received SERVER minastiri.nz 1 :"Tower of Guard"
 
 *CMD.........	Starting --servername osgiliath.nz --port 8558 --info "Citadel of the Stars" --log-file osgiliath.log --connect_to_host minastiri.nz --connect_to_port 5557

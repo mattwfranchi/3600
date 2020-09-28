@@ -260,8 +260,8 @@ class CRCServer(object):
                         self.accept_new_connection(key)
                     else:
                         self.service_socket(key,mask)
-
-        self.cleanup()
+        else:
+            self.cleanup()
 
 
 
@@ -271,8 +271,10 @@ class CRCServer(object):
     def cleanup(self):
         select_keys = list(self.sel._fd_to_key.values())
         for key in select_keys:
-            key.fileobj.close()
+
             self.sel.unregister(key.fileobj)
+            key.fileobj.close()
+
 
 
 
@@ -312,9 +314,10 @@ class CRCServer(object):
 
         if mask & selectors.EVENT_READ:
             recv_data = sock.recv(2048)
-            if recv_data == "":
-                self.sel.unregister(sock)
-                sock.close()
+            if recv_data == bytes("",'ascii'):
+                #if sys.getsizeof(recv_data) == 0:
+                    self.sel.unregister(sock)
+                    sock.close()
             else:
                 self.handle_messages(select_key,recv_data)
 
