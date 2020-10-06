@@ -1,3 +1,5 @@
+# Matt Franchi # Project 2 # CPSC 3600 # F20
+
 from optparse import OptionParser
 from socket import *
 import os, sys
@@ -197,16 +199,22 @@ class CRCServer(object):
     #       it just tells you that a socket is ready for processing. When registering the server socket, you can
     #       use the data parameter to make this possible
     def setup_server_socket(self):
+        # create and bind the server socket
         tcpServer = socket(AF_INET,SOCK_STREAM)
         tcpServer.bind(('',self.port))
 
+        # start listening on the server socket
         tcpServer.listen(5)
+        # prohibit blocking on the server socket
         tcpServer.setblocking(False)
 
+        #  server socket only reads
         events_mask = selectors.EVENT_READ
         data = ServerData()
+        # identifier
         data.servername = "SERVER_SOCKET"
 
+        # register the server socket
         self.sel.register(tcpServer,events_mask,data)
 
 
@@ -222,16 +230,19 @@ class CRCServer(object):
         sock.connect((self.connect_to_host_addr,self.connect_to_port))
         sock.setblocking(False)
 
-
+        # new sockets must handle both read and write events
         events_mask = selectors.EVENT_READ | selectors.EVENT_WRITE
         data = ServerData()
         data.servername = self.servername
         data.hopcount = 1
         data.info = self.info
 
+        # register the socket
         self.sel.register(sock,events_mask,data)
 
+        # registration messaqe matching format specified above
         reg_msg = "SERVER " + data.servername + " " + str(data.hopcount) + " :" + data.info + "\r\n"
+        # send encoded registration message
         sock.send(reg_msg.encode())
 
 
@@ -252,16 +263,22 @@ class CRCServer(object):
         # we can terminate by setting self.request_terminate to True.
         while not self.request_terminate:
             # TODO: Implement the above described code within this loop
+            # get list of sockets ready for processing
             events = self.sel.select(timeout = 1)
+            # for each socket in the events list
             for key, mask in events:
-                    sock = key.fileobj
+                    # get data from key
                     data = key.data
+                    # check if current socket is the server socket
                     if hasattr(data, 'servername') and data.servername == "SERVER_SOCKET":
+                        # accept_new_connection call
                         self.accept_new_connection(key)
                     else:
+                        # service socket if it is not the server socket
                         self.service_socket(key,mask)
-        else:
-            self.cleanup()
+
+        # cleanup once the while loop terminates
+        self.cleanup()
 
 
 
@@ -269,12 +286,14 @@ class CRCServer(object):
     # other sockets we've opened, and with our selector. Use this function to accomplish this
     # TODO: Perform any cleanup required upon termination of the program. This includes both sockets and your selector 
     def cleanup(self):
+        # get list of all active sockets using method described in class
         select_keys = list(self.sel._fd_to_key.values())
+        # loop through keys (for each) and unregister, close
         for key in select_keys:
-
             self.sel.unregister(key.fileobj)
             key.fileobj.close()
 
+        self.sel.close()
 
 
 
@@ -289,12 +308,18 @@ class CRCServer(object):
     #       See the comments at the top of this file for more details. ConnectionData holds our read and write buffers
     #       associated with this socket
     def accept_new_connection(self, select_key):
+        # get socket from select key
         sock = select_key.fileobj
+        # accept the connection request
         conn, addr = sock.accept()
 
+        # sockets need to support read and write events
         events_mask  = selectors.EVENT_READ | selectors.EVENT_WRITE
+
+        # new instance of ConnectionData(), with empty read and write buffer
         data = ConnectionData()
 
+        # register connected socket with the selector
         self.sel.register(conn,events_mask,data)
 
 
@@ -310,20 +335,28 @@ class CRCServer(object):
     #       If it is a write event, make sure you actually have data to write before writing to the socket.
     #       You don't want to write empty data to your socket
     def service_socket(self, select_key, mask):
+        # get socket from select key
         sock = select_key.fileobj
 
+        # CASE: read event
         if mask & selectors.EVENT_READ:
+            # receive 2048 bytes
             recv_data = sock.recv(2048)
+            # check to see if received message is empty
             if recv_data == bytes("",'ascii'):
-                #if sys.getsizeof(recv_data) == 0:
+                    # unregister socket from selector and close it
                     self.sel.unregister(sock)
                     sock.close()
             else:
+                # send received message through the message handler function
                 self.handle_messages(select_key,recv_data)
 
 
+        # CASE: write event
         if mask & selectors.EVENT_WRITE:
+            # get data to write from the write buffer
             write_data = select_key.data.write_buffer
+            # send the data through socket as long as it is nonempty
             if write_data != "":
                 sock.send(write_data.encode())
 
@@ -333,6 +366,7 @@ class CRCServer(object):
     # client or server and pass in the content of that message. This will get passed to your message parser
     # and sent on to the appropriate message handler function.
     def handle_messages(self, select_key, recv_data):
+        # parse data
         messages = self.parser.parse_data(recv_data)
 
         for message in messages:
@@ -356,8 +390,7 @@ class CRCServer(object):
     # Otherwise your code may block and cause your program to hang
     # TODO: Write the code required when the server has a message to be sent to another server
     def send_message_to_server(self, name_of_server_to_send_to, message):
-        sock = socket(AF_INET,SOCK_STREAM)
-        sock.sendto(message,name_of_server_to_send_to)
+        pass
 
 
     # When responding to an error, you may not yet know the name of client/server when sent the message

@@ -17,17 +17,17 @@ Beginning test NetworkConnectivity_3_EightServers
 *CMD.........	Starting --servername mirkwood.nz --port 6556 --info "Wood of Greenleaves" --log-file mirkwood.log --connect_to_host rivendale.nz --connect_to_port 6445
 [mirkwood.nz] 	Launching server mirkwood.nz...
 *CMD.........	Waiting... 0.5
+[mirkwood.nz] 	Connected to another server
 [rivendale.nz] 	Accepted a connection from another server
+[mirkwood.nz] 	Listening for new connections on port 6556
 [rivendale.nz] 	Received SERVER mirkwood.nz 1 :"Wood of Greenleaves"
 
-[mirkwood.nz] 	Connected to another server
-[mirkwood.nz] 	Listening for new connections on port 6556
 *CMD.........	Starting --servername lothlorin.nz --port 7556 --info "The Golden Wood" --log-file lothlorien.log --connect_to_host mirkwood.nz --connect_to_port 6556
 [lothlorin.nz] 	Launching server lothlorin.nz...
 *CMD.........	Waiting... 0.5
 [lothlorin.nz] 	Connected to another server
-[lothlorin.nz] 	Listening for new connections on port 7556
 [mirkwood.nz] 	Accepted a connection from another server
+[lothlorin.nz] 	Listening for new connections on port 7556
 [mirkwood.nz] 	Received SERVER lothlorin.nz 1 :"The Golden Wood"
 
 *CMD.........	Starting --servername isengard.nz --port 6557 --info "Orthanc" --log-file isengard.log --connect_to_host rivendale.nz --connect_to_port 6445
@@ -50,8 +50,8 @@ Beginning test NetworkConnectivity_3_EightServers
 [osgiliath.nz] 	Launching server osgiliath.nz...
 *CMD.........	Waiting... 0.5
 [osgiliath.nz] 	Connected to another server
-[osgiliath.nz] 	Listening for new connections on port 8558
 [minastiri.nz] 	Accepted a connection from another server
+[osgiliath.nz] 	Listening for new connections on port 8558
 [minastiri.nz] 	Received SERVER osgiliath.nz 1 :"Citadel of the Stars"
 
 *CMD.........	Starting --servername barad-dur.nz --port 5558 --info "The Dark Tower" --log-file barad-dur.log --connect_to_host minastiri.nz --connect_to_port 5557

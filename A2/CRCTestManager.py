@@ -10,6 +10,7 @@ from Testers.CRCFunctionalityTest import CRCFunctionalityTest
 class CRCLogger(object):
     def __init__(self, logfile):
         self.terminal = sys.stdout
+        self.terminal = sys.stdout
         self.log = logfile
         self.lock = threading.Lock()
 
@@ -133,6 +134,24 @@ if __name__ == "__main__":
     }
 
 
-    test_manager.run_tests(basic_connection_tests)
-    #test_manager.run_tests(message_parsing_tests)
+    #test_manager.run_tests(basic_connection_tests)
+    test_manager.run_tests(message_parsing_tests)
     #test_manager.run_tests(CRC_connection_tests)
+
+    if re.findall("(?<=^):(\S*)", msg):
+        prefix = re.findall("(?<=^):(\S*)", msg)[0]
+    else:
+        prefix = None
+
+    command = re.findall("[A-Z]{2,}", msg)[0]
+
+    params_string = re.findall("[A-Z]{2,}([^:]*)", msg)[0]
+    params = re.findall("\S+", params_string)
+
+    message["prefix"] = prefix
+    message["command"] = command
+    message["params"] = params
+
+    params.append(re.findall("(?<!^):(.*)", msg))
+    processed_commands.append(message)
+

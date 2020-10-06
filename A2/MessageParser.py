@@ -1,3 +1,6 @@
+import re
+
+
 class MessageParser(object):
     def __init__(self):
         pass
@@ -29,5 +32,35 @@ class MessageParser(object):
     # When processing data received from a socket, it's possible that the data contains multiple commands
     # We need to split the message into a list of commands, which are delimited by \r\n
     def parse_data(self, recv_data):
+        processed_commands = []
 
-        return []
+        commands = re.split("\r\n",recv_data.decode())
+
+        for msg in commands:
+            message = {
+                "prefix": None,
+                "command": None,
+                "params": None
+            }
+
+            if re.findall("(?<=^):(\S*)", msg):
+                prefix = re.findall("(?<=^):(\S*)", msg)[0]
+            else:
+                prefix = None
+
+            command = re.findall("[A-Z]{2,}", msg)[0]
+
+            params_string = re.findall("[A-Z]{2,}([^:]*)", msg)[0]
+            params = re.findall("\S+", params_string)
+            params.append(re.findall("(?<!^):(.*)", msg))
+
+            message["prefix"] = prefix
+            message["command"] = command
+            message["params"] = params
+
+
+            processed_commands.append(message)
+
+
+
+        return processed_commands
