@@ -6,7 +6,7 @@ import os, sys
 import selectors
 import logging
 import types
-from MessageParser import MessageParser
+from MessageParser1 import MessageParser
 
 
 # This class represents a generic connection. It contains a read_buffer and a write_buffer. When the server wants to
@@ -390,7 +390,11 @@ class CRCServer(object):
     # Otherwise your code may block and cause your program to hang
     # TODO: Write the code required when the server has a message to be sent to another server
     def send_message_to_server(self, name_of_server_to_send_to, message):
-        pass
+        server = self.servers_lookuptable[name_of_server_to_send_to]
+        server.write_buffer = message
+        print(message)
+
+
 
 
     # When responding to an error, you may not yet know the name of client/server when sent the message
@@ -400,7 +404,8 @@ class CRCServer(object):
     # if you don't know the name of the server/client the message is directed to
     # TODO: Write the code required when the server has a message to be sent through a select_key
     def send_message_to_select_key(self, select_key, message):
-        pass
+        conn_data = select_key.fileobj
+        conn_data.write_buffer = message
 
 
     # This function should implement the functionality used to send a message to a client. This function
@@ -411,7 +416,16 @@ class CRCServer(object):
     # Otherwise your code may block and cause your program to hang
     # TODO: Write the code required when the server has a message to be sent to a client
     def send_message_to_client(self, name_of_client_to_send_to, message):
-        pass
+        user = self.users_lookuptable[name_of_client_to_send_to]
+        # adjacency test
+        if str(message)[0] == ":":
+            user.write_buffer = message
+        else:
+            adj_server = self.servers_lookuptable[user.first_link]
+            adj_server.write_buffer = message
+
+
+
 
 
     # Messages will sometimes need to be sent to every server in the IRC network. This is a helper function
@@ -424,7 +438,12 @@ class CRCServer(object):
     # TODO: Write the code required to broadcast to all adjacent servers, except for a server included in the
     #       ignore_server parameter
     def broadcast_message_to_servers(self, message, ignore_server=None):
-        pass
+        for server_name in self.adjacent_servers:
+            if server_name == ignore_server:
+                continue
+            self.send_message_to_server(server_name, message)
+
+
 
 
 
@@ -468,7 +487,77 @@ class CRCServer(object):
     # to determine that the connection received over that socket is from a server, and to determine which server, for all future
     # messages received from that socket
     def handle_server_message(self, select_key, prefix, command, params):
-        pass
+
+        newServerData = ServerData()
+
+        newServerData.servername = params[0] or None
+        newServerData.hopcount = params[1] or None
+        newServerData.info = params[2] or None
+
+        # CASE: NO prefix (new adjacent server)
+        if prefix is None:
+
+            events = selectors.EVENT_READ | selectors.EVENT_WRITE
+            self.sel.modify(select_key.fileobj,events,newServerData)
+
+            newServerData.first_link = newServerData.servername
+            self.adjacent_servers.append(newServerData.servername)
+
+            self.servers_lookuptable[newServerData.servername] = newServerData
+
+            # sending info about origin server to new server
+            message = ":" + self.servername + " SERVER " + self.servername + " 1 :" + self.info + "\r\n"
+            self.send_message_to_server(newServerData.servername,message)
+
+
+            # sending info about all other known servers to new server
+            for s in self.servers_lookuptable:
+                if s == newServerData.servername:
+                    continue
+                server = self.servers_lookuptable[s]
+                message = ":" + self.servername + " SERVER " + server.servername + " " + \
+                    server.hopcount + " :" + server.info + "\r\n"
+                self.send_message_to_server(newServerData.servername, message)
+
+            # sending info about all known users to new server
+            for u in self.users_lookuptable:
+                user = self.users_lookuptable[u]
+                message = ":" + self.servername + " USER " + user.nick + " " + user.hostname + " " + \
+                          user.servername + " :" + user.realname + "\r\n"
+
+                self.send_message_to_server(newServerData.servername,message)
+
+        # CASE: prefix (messaged passed on by another server)
+        else:
+
+            if prefix == params[0]:
+
+                events = selectors.EVENT_READ | selectors.EVENT_WRITE
+                self.sel.modify(select_key.fileobj, events, newServerData)
+
+                newServerData.first_link = newServerData.servername
+                if not newServerData.servername in self.adjacent_servers:
+                    self.adjacent_servers.append(newServerData.servername)
+
+                self.servers_lookuptable[newServerData.servername] = newServerData
+
+                # sending info about origin server to new server
+                message = ":" + self.servername + " SERVER " + self.servername + " 1 :" + self.info + "\r\n"
+                self.send_message_to_server(newServerData.servername, message)
+
+            else:
+                newServerData = select_key.data
+                newServerData.first_link = prefix
+
+
+        message = ":" + self.servername + " SERVER " + newServerData.servername + " " + newServerData.hopcount + " :" \
+                    + newServerData.info + "\r\n"
+        self.broadcast_message_to_servers(message,newServerData.servername)
+
+
+
+
+
 
 
 
@@ -501,7 +590,48 @@ class CRCServer(object):
     # to determine that the connection received over that socket is from a client, and to determine which client, for all future
     # messages received from that socket
     def handle_user_message(self, select_key, prefix, command, params):
-        pass
+        username = params[0]
+        hostname = params[1]
+        server_name  = params[2]
+        real_name = params[3]
+
+        data = select_key.data
+
+        userdata = UserData()
+        userdata.servername = server_name
+        userdata.hostname = hostname
+        userdata.nick = username
+        userdata.realname = real_name
+
+        if username in self.users_lookuptable:
+            self.send_message_to_client(hostname, ":"+str(self.reply_codes["ERR_NICKCOLLISION"]))
+            return
+        else:
+            self.sel.modify(select_key.fileobj, selectors.EVENT_READ | selectors.EVENT_WRITE, userdata)
+
+        if prefix:
+            if prefix == userdata.servername:
+                self.sel.modify(select_key.fileobj, selectors.EVENT_READ | selectors.EVENT_WRITE, userdata)
+                userdata.first_link = self.servername
+                self.adjacent_users.append(userdata.nick)
+            else:
+                userdata.first_link = prefix
+
+            msg = ":" + self.servername + " USER " + userdata.servername + \
+                   " :" + userdata.realname
+
+            self.users_lookuptable[userdata.nick] = userdata
+            self.broadcast_message_to_servers(msg, prefix)
+
+        else:
+            self.sel.modify(select_key.fileobj, selectors.EVENT_READ | selectors.EVENT_WRITE, userdata)
+            userdata.first_link = self.servername
+            self.adjacent_users.append(userdata.nick)
+
+            self.users_lookuptable[userdata.nick] = userdata
+            self.send_message_to_client(userdata.nick,":"+str(self.reply_codes["RPL_WELCOME"]))
+
+
 
 
 
@@ -523,10 +653,30 @@ class CRCServer(object):
     # to all servers. If the user appended an optional Goodbye message then it should be sent to all users in the channels
     # the user had joined.
     def handle_quit_message(self, select_key, prefix, command, params):
-        pass
+        if command == "QUIT":
+            if prefix:
+                username = prefix
 
-    
-    
+            else:
+                username = select_key.data.nick
+
+            self.adjacent_users.remove(username)
+            self.users_lookuptable.pop(username)
+
+        message = ":"+username+" QUIT :"
+
+        if params:
+            message += params[0]
+        else:
+            message += username + " has quit"
+
+        self.broadcast_message_to_servers(message)
+
+
+
+
+
+
 
     # DO NOT EDIT ANY OF THE FUNCTIONS INCLUDED IN IRCServer BELOW THIS LINE
     # These are helper functions to assist with logging, and list management

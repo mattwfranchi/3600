@@ -122,20 +122,20 @@ if __name__ == "__main__":
     CRC_connection_tests = {
         'ServerConnections_1_TwoServers':3,
         'ServerConnections_2_FourServers':4,
-        'ServerConnections_3_EightServers':5,
+        #'ServerConnections_3_EightServers':5,
 
-        'ClientServerConnections_1_OneServer_OneClient':1,
-        'ClientServerConnections_2_OneServer_FourClients':3,
-        'ClientServerConnections_3_ThreeServers_SevenClients':4,
-        'ClientServerConnections_4_ERROR_NickCollision':1,
+        #'ClientServerConnections_1_OneServer_OneClient':1,
+        #'ClientServerConnections_2_OneServer_FourClients':3,
+        #'ClientServerConnections_3_ThreeServers_SevenClients':4,
+        #'ClientServerConnections_4_ERROR_NickCollision':1,
 
-        'QUIT_1_OneServer_FourClient':1,
-        'QUIT_2_ThreeServers_SevenClients':2,
+        #'QUIT_1_OneServer_FourClient':1,
+        #'QUIT_2_ThreeServers_SevenClients':2,
     }
 
 
     #test_manager.run_tests(basic_connection_tests)
-    test_manager.run_tests(message_parsing_tests)
-    #test_manager.run_tests(CRC_connection_tests)
-
+    #test_manager.run_tests(message_parsing_tests)
+    test_manager.run_tests(CRC_connection_tests)
+    pass
 
