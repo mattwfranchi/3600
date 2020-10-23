@@ -1,0 +1,18 @@
+
+##############################################
+Beginning test ServerConnections_1_TwoServers
+
+*CMD.........	Starting --servername theshire.nz --port 61355 --info 'Home of the hobbits' --log-file theshire.log
+[theshire.nz] 	Launching server theshire.nz...
+*CMD.........	Waiting... 0.5
+[theshire.nz] 	Listening for new connections on port 61355
+*CMD.........	Starting --servername rivendale.nz --port 46742 --info 'Elrond's House' --log-file rivendale.log --connect_to_host theshire.nz --connect_to_port 61355
+[rivendale.nz] 	Launching server rivendale.nz...
+*CMD.........	Waiting... 0.5
+[rivendale.nz] 	Listening for new connections on port 46742
+[theshire.nz] 	Received message "{'prefix': None, 'params': ['rivendale.nz', '1', "'Elrond's"], 'command': 'SERVER'}"
+:theshire.nz SERVER theshire.nz 1 :'Home
+
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+
+Test passed:True

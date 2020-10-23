@@ -1,0 +1,17 @@
+2020-10-22 18:07:08,170 - IRCServer[22588] - INFO - Launching client samgamgee@windows1...
+2020-10-22 18:07:08,170 - IRCServer[22588] - INFO - Received message "{'params': ['samgamgee', 'windows1', 'theshire.nz', "'Sam"], 'prefix': None, 'command': 'USER'}"
+2020-10-22 18:07:08,170 - IRCServer[22588] - INFO - Received registration message: :theshire.nz 1
+2020-10-22 18:07:08,676 - IRCServer[22588] - INFO - Launching client frodobaggins@BrandyHall...
+2020-10-22 18:07:08,677 - IRCServer[22588] - INFO - Received message "{'params': ['frodobaggins', 'BrandyHall', 'theshire.nz', "'Frodo"], 'prefix': None, 'command': 'USER'}"
+2020-10-22 18:07:08,678 - IRCServer[22588] - INFO - Received registration message: :theshire.nz 1
+2020-10-22 18:07:09,181 - IRCServer[22588] - INFO - Launching client pippintook@Windows3...
+2020-10-22 18:07:09,181 - IRCServer[22588] - INFO - Received message "{'params': ['pippintook', 'Windows3', 'theshire.nz', "'Peregrin"], 'prefix': None, 'command': 'USER'}"
+2020-10-22 18:07:09,182 - IRCServer[22588] - INFO - Received registration message: :theshire.nz 1
+2020-10-22 18:07:09,685 - IRCServer[22588] - INFO - Launching client merrybrandybuck@Windows3...
+2020-10-22 18:07:09,686 - IRCServer[22588] - INFO - Received message "{'params': ['merrybrandybuck', 'Windows3', 'theshire.nz', "'Meriadoc"], 'prefix': None, 'command': 'USER'}"
+2020-10-22 18:07:09,686 - IRCServer[22588] - INFO - Received registration message: :theshire.nz 1
+'theshire.nz', "'Peregrin"], 'prefix': None, 'command': 'USER'}"
+2020-10-22 18:07:09,182 - IRCServer[22588] - INFO - Received registration message: :theshire.nz 1
+2020-10-22 18:07:09,685 - IRCServer[22588] - INFO - Launching client merrybrandybuck@Windows3...
+2020-10-22 18:07:09,686 - IRCServer[22588] - INFO - Received message "{'params': ['merrybrandybuck', 'Windows3', 'theshire.nz', "'Meriadoc"], 'prefix': None, 'command': 'USER'}"
+2020-10-22 18:07:09,686 - IRCServer[22588] - INFO - Received registration message: :theshire.nz 1

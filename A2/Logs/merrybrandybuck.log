@@ -1,0 +1,3 @@
+2020-10-22 18:07:09,685 - IRCServer[22588] - INFO - Launching client merrybrandybuck@Windows3...
+2020-10-22 18:07:09,686 - IRCServer[22588] - INFO - Received message "{'params': ['merrybrandybuck', 'Windows3', 'theshire.nz', "'Meriadoc"], 'prefix': None, 'command': 'USER'}"
+2020-10-22 18:07:09,686 - IRCServer[22588] - INFO - Received registration message: :theshire.nz 1

@@ -6,7 +6,8 @@ import os, sys
 import selectors
 import logging
 import types
-from MessageParser1 import MessageParser
+from MessageParser import MessageParser
+import time
 
 
 # This class represents a generic connection. It contains a read_buffer and a write_buffer. When the server wants to
@@ -359,6 +360,8 @@ class CRCServer(object):
             # send the data through socket as long as it is nonempty
             if write_data != "":
                 sock.send(write_data.encode())
+            # clear the write buffer
+            select_key.data.write_buffer = ""
 
 
 
@@ -392,7 +395,8 @@ class CRCServer(object):
     def send_message_to_server(self, name_of_server_to_send_to, message):
         server = self.servers_lookuptable[name_of_server_to_send_to]
         server.write_buffer = message
-        print(message)
+        print("FROM " + message[:-2] + " TO " + name_of_server_to_send_to )
+
 
 
 
@@ -404,7 +408,7 @@ class CRCServer(object):
     # if you don't know the name of the server/client the message is directed to
     # TODO: Write the code required when the server has a message to be sent through a select_key
     def send_message_to_select_key(self, select_key, message):
-        conn_data = select_key.fileobj
+        conn_data = select_key.data
         conn_data.write_buffer = message
 
 
@@ -488,71 +492,105 @@ class CRCServer(object):
     # messages received from that socket
     def handle_server_message(self, select_key, prefix, command, params):
 
-        newServerData = ServerData()
-
-        newServerData.servername = params[0] or None
-        newServerData.hopcount = params[1] or None
-        newServerData.info = params[2] or None
-
-        # CASE: NO prefix (new adjacent server)
+        # CASE: we have a new adjacent server (A) incoming, and need to register said server with self (S)
         if prefix is None:
+            # create ServerData object to hold A's data
+            A = ServerData()
+            A.servername = params[0] or None
+            A.hopcount = int(params[1]) or None # should always be equal to 1, due to adjacency
+            A.info = params[2] or None
 
+            # set A's first link (from the perspective of S) to A, as S and A are adjacent
+            A.first_link = A.servername
+
+            # add A to S's adjacent servers list
+            self.adjacent_servers.append(A.servername)
+
+
+
+            # update A's socket (from PoV of S) to the ServerData object
+            socket_A = select_key.fileobj
             events = selectors.EVENT_READ | selectors.EVENT_WRITE
-            self.sel.modify(select_key.fileobj,events,newServerData)
+            self.sel.modify(socket_A,events,A)
 
-            newServerData.first_link = newServerData.servername
-            self.adjacent_servers.append(newServerData.servername)
+            # add A's data to S's server lookup table
+            self.servers_lookuptable[A.servername] = A
 
-            self.servers_lookuptable[newServerData.servername] = newServerData
+            # send S's data to A for education purposes
+            return_message = ":" + self.servername + " SERVER " + self.servername + " 1 :" + self.info + "\r\n"
+            # print(return_message + "to " + A.servername)
+            self.send_message_to_select_key(select_key, return_message)
 
-            # sending info about origin server to new server
-            message = ":" + self.servername + " SERVER " + self.servername + " 1 :" + self.info + "\r\n"
-            self.send_message_to_server(newServerData.servername,message)
-
-
-            # sending info about all other known servers to new server
+            # send the data S knows about other servers and users to A for education purposes
             for s in self.servers_lookuptable:
-                if s == newServerData.servername:
+                if s == A.servername:
                     continue
-                server = self.servers_lookuptable[s]
-                message = ":" + self.servername + " SERVER " + server.servername + " " + \
-                    server.hopcount + " :" + server.info + "\r\n"
-                self.send_message_to_server(newServerData.servername, message)
+                S = self.servers_lookuptable[s]
+                alert_message = ":" + self.servername + " SERVER " + S.servername + " " + str(S.hopcount+1) + \
+                                " :" + S.info + "\r\n"
 
-            # sending info about all known users to new server
+                self.send_message_to_server(A.servername,alert_message)
+
+
             for u in self.users_lookuptable:
-                user = self.users_lookuptable[u]
-                message = ":" + self.servername + " USER " + user.nick + " " + user.hostname + " " + \
-                          user.servername + " :" + user.realname + "\r\n"
+                U = self.users_lookuptable[u]
+                alert_message = ":" + self.servername + " USER" + U.nick + " " + U.hostname + " " + U.servername \
+                                + " :" + U.realname + "\r\n"
+                self.send_message_to_server(A.servername,alert_message)
 
-                self.send_message_to_server(newServerData.servername,message)
 
-        # CASE: prefix (messaged passed on by another server)
+
+
+            # broadcast registration to other adjacent servers
+            alert_message = ":" + self.servername + " SERVER " + A.servername + " " + str(A.hopcount+1) + " :" \
+                            + A.info + "\r\n"
+            self.broadcast_message_to_servers(alert_message, A.servername)
+
+
+
+
+
+        # CASE: adjacent server registered, sending back info or broadcasting info to other servers
         else:
-
+            # SUBCASE: adjacent server registered, need to get back info about self
             if prefix == params[0]:
+                A = ServerData()
+                A.servername = params[0] or None
+                A.hopcount = int(params[1]) or None
+                A.info = params[2] or None
 
+                A.first_link = A.servername
+
+                self.adjacent_servers.append(prefix)
+                self.servers_lookuptable[A.servername] = A
+
+                socket_A = select_key.fileobj
                 events = selectors.EVENT_READ | selectors.EVENT_WRITE
-                self.sel.modify(select_key.fileobj, events, newServerData)
+                self.sel.modify(socket_A,events,A)
 
-                newServerData.first_link = newServerData.servername
-                if not newServerData.servername in self.adjacent_servers:
-                    self.adjacent_servers.append(newServerData.servername)
 
-                self.servers_lookuptable[newServerData.servername] = newServerData
-
-                # sending info about origin server to new server
-                message = ":" + self.servername + " SERVER " + self.servername + " 1 :" + self.info + "\r\n"
-                self.send_message_to_server(newServerData.servername, message)
-
+            # SUBCASE: adjacent server registered, need to broadcast new server info to other adjacent servers
             else:
-                newServerData = select_key.data
-                newServerData.first_link = prefix
+
+                N = ServerData()
+                N.servername = params[0]
+                N.hopcount = int(params[1])+1
+                N.info = params[2]
+                N.first_link = prefix
+
+                self.servers_lookuptable[N.servername] = N
+
+                select_key.data.first_link = prefix
+
+                alert_message = ":" + prefix + " SERVER " + params[0] + " " + str(int(params[1]) + 1) + " :" + params[2] + "\r\n"
+                self.broadcast_message_to_servers(alert_message,select_key.data.servername)
 
 
-        message = ":" + self.servername + " SERVER " + newServerData.servername + " " + newServerData.hopcount + " :" \
-                    + newServerData.info + "\r\n"
-        self.broadcast_message_to_servers(message,newServerData.servername)
+
+
+
+
+
 
 
 
@@ -604,7 +642,7 @@ class CRCServer(object):
         userdata.realname = real_name
 
         if username in self.users_lookuptable:
-            self.send_message_to_client(hostname, ":"+str(self.reply_codes["ERR_NICKCOLLISION"]))
+            self.send_message_to_client(hostname, ":"+str(self.reply_codes["ERR_NICKCOLLISION"])+"\r\n")
             return
         else:
             self.sel.modify(select_key.fileobj, selectors.EVENT_READ | selectors.EVENT_WRITE, userdata)
@@ -618,7 +656,7 @@ class CRCServer(object):
                 userdata.first_link = prefix
 
             msg = ":" + self.servername + " USER " + userdata.servername + \
-                   " :" + userdata.realname
+                   " :" + userdata.realname + "\r\n"
 
             self.users_lookuptable[userdata.nick] = userdata
             self.broadcast_message_to_servers(msg, prefix)
@@ -629,7 +667,7 @@ class CRCServer(object):
             self.adjacent_users.append(userdata.nick)
 
             self.users_lookuptable[userdata.nick] = userdata
-            self.send_message_to_client(userdata.nick,":"+str(self.reply_codes["RPL_WELCOME"]))
+            self.send_message_to_client(userdata.nick,":"+userdata.servername+" "+str(self.reply_codes["RPL_WELCOME"]))
 
 
 
@@ -666,9 +704,9 @@ class CRCServer(object):
         message = ":"+username+" QUIT :"
 
         if params:
-            message += params[0]
+            message += params[0] + "\r\n"
         else:
-            message += username + " has quit"
+            message += username + " has quit \r\n"
 
         self.broadcast_message_to_servers(message)
 

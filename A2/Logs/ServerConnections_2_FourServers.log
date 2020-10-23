@@ -1,0 +1,41 @@
+
+##############################################
+Beginning test ServerConnections_2_FourServers
+
+*CMD.........	Starting --servername theshire.nz --port 7428 --info 'Home of the hobbits' --log-file theshire.log
+[theshire.nz] 	Launching server theshire.nz...
+*CMD.........	Waiting... 0.5
+[theshire.nz] 	Listening for new connections on port 7428
+*CMD.........	Starting --servername rivendale.nz --port 8934 --info 'Elrond's House' --log-file rivendale.log --connect_to_host theshire.nz --connect_to_port 7428
+[rivendale.nz] 	Launching server rivendale.nz...
+*CMD.........	Waiting... 0.5
+[rivendale.nz] 	Listening for new connections on port 8934
+[theshire.nz] 	Received message "{'prefix': None, 'command': 'SERVER', 'params': ['rivendale.nz', '1', "'Elrond's"]}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'command': 'SERVER', 'params': ['theshire.nz', '1', "'Home"]}"
+*CMD.........	Starting --servername minastirith.nz --port 13784 --info 'Tower of Guard' --log-file minastirith.log --connect_to_host theshire.nz --connect_to_port 7428
+[minastirith.nz] 	Launching server minastirith.nz...
+*CMD.........	Waiting... 0.5
+[minastirith.nz] 	Listening for new connections on port 13784
+[theshire.nz] 	Received message "{'prefix': None, 'command': 'SERVER', 'params': ['minastirith.nz', '1', "'Tower"]}"
+FROM :theshire.nz SERVER rivendale.nz 2 :'Elrond's TO minastirith.nz
+FROM :theshire.nz SERVER minastirith.nz 2 :'Tower TO rivendale.nz
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'command': 'SERVER', 'params': ['minastirith.nz', '2', "'Tower"]}"
+[minastirith.nz] 	Received message "{'prefix': 'theshire.nz', 'command': 'SERVER', 'params': ['theshire.nz', '1', "'Home"]}"
+[minastirith.nz] 	Received message "{'prefix': 'theshire.nz', 'command': 'SERVER', 'params': ['rivendale.nz', '2', "'Elrond's"]}"
+FROM :theshire.nz SERVER rivendale.nz 3 :'Elrond's TO theshire.nz
+[theshire.nz] 	Received message "{'prefix': 'theshire.nz', 'command': 'SERVER', 'params': ['rivendale.nz', '3', "'Elrond's"]}"
+FROM :theshire.nz SERVER rivendale.nz 4 :'Elrond's TO rivendale.nz
+*CMD.........	Starting --servername barad-dur.nz --port 5558 --info 'the Dark Tower' --log-file barad-dur.log --connect_to_host minastirith.nz --connect_to_port 13784
+[barad-dur.nz] 	Launching server barad-dur.nz...
+*CMD.........	Waiting... 0.5
+[barad-dur.nz] 	Listening for new connections on port 5558
+[minastirith.nz] 	Received message "{'prefix': None, 'command': 'SERVER', 'params': ['barad-dur.nz', '1', "'the"]}"
+FROM :minastirith.nz SERVER theshire.nz 2 :'Home TO barad-dur.nz
+FROM :minastirith.nz SERVER rivendale.nz 4 :'Elrond's TO barad-dur.nz
+FROM :minastirith.nz SERVER barad-dur.nz 2 :'the TO theshire.nz
+[barad-dur.nz] 	Received message "{'prefix': 'minastirith.nz', 'command': 'SERVER', 'params': ['minastirith.nz', '1', "'Tower"]}"
+[theshire.nz] 	Received message "{'prefix': 'minastirith.nz', 'command': 'SERVER', 'params': ['barad-dur.nz', '2', "'the"]}"
+[barad-dur.nz] 	Received message "{'prefix': 'minastirith.nz', 'command': 'SERVER', 'params': ['rivendale.nz', '4', "'Elrond's"]}"
+FROM :minastirith.nz SERVER barad-dur.nz 3 :'the TO rivendale.nz
+
+Test passed:False

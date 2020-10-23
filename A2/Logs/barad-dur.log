@@ -1,2 +1,6 @@
-2020-10-22 13:28:36,501 - IRCServer[14036] - INFO - Launching server barad-dur.nz...
-2020-10-22 13:28:36,501 - IRCServer[14036] - INFO - Listening for new connections on port 5558
+2020-10-23 10:31:02,156 - IRCServer[7200] - INFO - Launching server barad-dur.nz...
+2020-10-23 10:31:02,171 - IRCServer[7200] - INFO - Listening for new connections on port 5558
+2020-10-23 10:31:02,175 - IRCServer[7200] - INFO - Received message "{'prefix': None, 'command': 'SERVER', 'params': ['barad-dur.nz', '1', "'the"]}"
+2020-10-23 10:31:02,175 - IRCServer[7200] - INFO - Received message "{'prefix': 'minastirith.nz', 'command': 'SERVER', 'params': ['minastirith.nz', '1', "'Tower"]}"
+2020-10-23 10:31:02,176 - IRCServer[7200] - INFO - Received message "{'prefix': 'minastirith.nz', 'command': 'SERVER', 'params': ['barad-dur.nz', '2', "'the"]}"
+2020-10-23 10:31:02,178 - IRCServer[7200] - INFO - Received message "{'prefix': 'minastirith.nz', 'command': 'SERVER', 'params': ['rivendale.nz', '4', "'Elrond's"]}"

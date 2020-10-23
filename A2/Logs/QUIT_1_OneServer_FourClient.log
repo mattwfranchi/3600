@@ -1,0 +1,36 @@
+
+##############################################
+Beginning test QUIT_1_OneServer_FourClient
+
+*CMD.........	Starting --servername theshire.nz --port 6223 --info "Home of the hobbits" --log-file theshire.log
+[theshire.nz] 	Launching server theshire.nz...
+*CMD.........	Waiting... 0.5
+[theshire.nz] 	Listening for new connections on port 6223
+*CMD.........	Starting --serverhost theshire.nz --serverport 6223 --nick samgamgee --hostname windows1 --realname 'Sam Gamgee' --log-file samgamgee.log
+[samgamgee] 	Launching client samgamgee@windows1...
+*CMD.........	Waiting... 0.5
+[theshire.nz] 	Received message "{'prefix': None, 'params': ['samgamgee', 'windows1', 'theshire.nz', "'Sam"], 'command': 'USER'}"
+[samgamgee] 	Received registration message: :1
+*CMD.........	Starting --serverhost theshire.nz --serverport 6223 --nick frodobaggins --hostname BrandyHall --realname 'Frodo Baggins' --log-file frodobaggins.log
+[frodobaggins] 	Launching client frodobaggins@BrandyHall...
+*CMD.........	Waiting... 0.5
+[theshire.nz] 	Received message "{'prefix': None, 'params': ['frodobaggins', 'BrandyHall', 'theshire.nz', "'Frodo"], 'command': 'USER'}"
+[frodobaggins] 	Received registration message: :1
+*CMD.........	Starting --serverhost theshire.nz --serverport 6223 --nick pippintook --hostname Windows3 --realname 'Peregrin Took' --log-file pippintook.log
+[pippintook] 	Launching client pippintook@Windows3...
+*CMD.........	Waiting... 0.5
+[theshire.nz] 	Received message "{'prefix': None, 'params': ['pippintook', 'Windows3', 'theshire.nz', "'Peregrin"], 'command': 'USER'}"
+[pippintook] 	Received registration message: :1
+*CMD.........	Starting --serverhost theshire.nz --serverport 6223 --nick merrybrandybuck --hostname Windows3 --realname 'Meriadoc Brandybuck' --log-file merrybrandybuck.log
+[merrybrandybuck] 	Launching client merrybrandybuck@Windows3...
+*CMD.........	Waiting... 0.5
+[theshire.nz] 	Received message "{'prefix': None, 'params': ['merrybrandybuck', 'Windows3', 'theshire.nz', "'Meriadoc"], 'command': 'USER'}"
+[merrybrandybuck] 	Received registration message: :1
+*CMD.........	Running client command: --nick samgamgee --command QUIT
+*CMD.........	Waiting... 0.5
+[theshire.nz] 	Received message "{'prefix': None, 'params': [], 'command': 'QUIT'}"
+*CMD.........	Running client command: --nick frodobaggins --command QUIT "Leaving for the Undying Lands"
+[theshire.nz] 	Received message "{'prefix': None, 'params': ['"Leaving for the Undying Lands"'], 'command': 'QUIT'}"
+*CMD.........	Waiting... 0.5
+
+Test passed:True

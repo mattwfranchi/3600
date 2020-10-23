@@ -1,4 +1,21 @@
-2020-10-20 18:48:47,650 - IRCServer[23076] - INFO - Launching server osgiliath.nz...
-2020-10-20 18:48:47,666 - IRCServer[23076] - INFO - Listening for new connections on port 24357
-2020-10-20 18:48:48,160 - IRCServer[23076] - INFO - Launching server barad-dur.nz...
-2020-10-20 18:48:48,172 - IRCServer[23076] - INFO - Listening for new connections on port 23579
+2020-10-23 10:15:15,746 - IRCServer[18620] - INFO - Launching server osgiliath.nz...
+2020-10-23 10:15:15,749 - IRCServer[18620] - INFO - Listening for new connections on port 24357
+2020-10-23 10:15:15,749 - IRCServer[18620] - INFO - Received message "{'prefix': None, 'command': 'SERVER', 'params': ['osgiliath.nz', '1', '"Citadel of the Stars"']}"
+2020-10-23 10:15:15,751 - IRCServer[18620] - INFO - Received message "{'prefix': 'minastirith.nz', 'command': 'SERVER', 'params': ['minastirith.nz', '1', 'Tower']}"
+2020-10-23 10:15:15,752 - IRCServer[18620] - INFO - Received message "{'prefix': 'minastirith.nz', 'command': 'SERVER', 'params': ['osgiliath.nz', '2', '"Citadel of the Stars"']}"
+2020-10-23 10:15:15,754 - IRCServer[18620] - INFO - Received message "{'prefix': 'minastirith.nz', 'command': 'SERVER', 'params': ['mirkwood.nz', '6', '"Wood of Greenleaves"']}"
+2020-10-23 10:15:15,754 - IRCServer[18620] - INFO - Received message "{'prefix': 'minastirith.nz', 'command': 'SERVER', 'params': ['osgiliath.nz', '3', '"Citadel of the Stars"']}"
+2020-10-23 10:15:15,756 - IRCServer[18620] - INFO - Received message "{'prefix': 'minastirith.nz', 'command': 'SERVER', 'params': ['osgiliath.nz', '4', '"Citadel of the Stars"']}"
+2020-10-23 10:15:15,756 - IRCServer[18620] - INFO - Received message "{'prefix': 'minastirith.nz', 'command': 'SERVER', 'params': ['osgiliath.nz', '4', '"Citadel of the Stars"']}"
+2020-10-23 10:15:15,758 - IRCServer[18620] - INFO - Received message "{'prefix': 'minastirith.nz', 'command': 'SERVER', 'params': ['osgiliath.nz', '5', '"Citadel of the Stars"']}"
+2020-10-23 10:15:16,256 - IRCServer[18620] - INFO - Launching server barad-dur.nz...
+2020-10-23 10:15:16,266 - IRCServer[18620] - INFO - Listening for new connections on port 23579
+2020-10-23 10:15:16,267 - IRCServer[18620] - INFO - Received message "{'prefix': None, 'command': 'SERVER', 'params': ['barad-dur.nz', '1', '"the Dark Tower"']}"
+2020-10-23 10:15:16,275 - IRCServer[18620] - INFO - Received message "{'prefix': 'minastirith.nz', 'command': 'SERVER', 'params': ['minastirith.nz', '1', 'Tower']}"
+2020-10-23 10:15:16,275 - IRCServer[18620] - INFO - Received message "{'prefix': 'minastirith.nz', 'command': 'SERVER', 'params': ['barad-dur.nz', '2', '"the Dark Tower"']}"
+2020-10-23 10:15:16,276 - IRCServer[18620] - INFO - Received message "{'prefix': 'minastirith.nz', 'command': 'SERVER', 'params': ['barad-dur.nz', '2', '"the Dark Tower"']}"
+2020-10-23 10:15:16,280 - IRCServer[18620] - INFO - Received message "{'prefix': 'minastirith.nz', 'command': 'SERVER', 'params': ['osgiliath.nz', '2', '"Citadel of the Stars"']}"
+2020-10-23 10:15:16,281 - IRCServer[18620] - INFO - Received message "{'prefix': 'minastirith.nz', 'command': 'SERVER', 'params': ['barad-dur.nz', '3', '"the Dark Tower"']}"
+2020-10-23 10:15:16,288 - IRCServer[18620] - INFO - Received message "{'prefix': 'minastirith.nz', 'command': 'SERVER', 'params': ['barad-dur.nz', '4', '"the Dark Tower"']}"
+2020-10-23 10:15:16,289 - IRCServer[18620] - INFO - Received message "{'prefix': 'minastirith.nz', 'command': 'SERVER', 'params': ['barad-dur.nz', '4', '"the Dark Tower"']}"
+2020-10-23 10:15:16,292 - IRCServer[18620] - INFO - Received message "{'prefix': 'minastirith.nz', 'command': 'SERVER', 'params': ['barad-dur.nz', '5', '"the Dark Tower"']}"

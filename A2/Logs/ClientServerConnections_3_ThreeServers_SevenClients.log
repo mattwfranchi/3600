@@ -1,0 +1,75 @@
+
+##############################################
+Beginning test ClientServerConnections_3_ThreeServers_SevenClients
+
+*CMD.........	Starting --servername theshire.nz --port 34538 --info 'Home of the hobbits' --log-file theshire.log
+[theshire.nz] 	Launching server theshire.nz...
+*CMD.........	Waiting... 0.5
+[theshire.nz] 	Listening for new connections on port 34538
+*CMD.........	Starting --servername rivendale.nz --port 35676 --info 'Elronds House' --log-file rivendale.log --connect_to_host theshire.nz --connect_to_port 34538
+[rivendale.nz] 	Launching server rivendale.nz...
+*CMD.........	Waiting... 0.5
+[rivendale.nz] 	Listening for new connections on port 35676
+[theshire.nz] 	Received message "{'prefix': None, 'params': ['rivendale.nz', '1', "'Elronds"], 'command': 'SERVER'}"
+:theshire.nz SERVER theshire.nz 1 :'Home
+
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'params': ['theshire.nz', '1', "'Home"], 'command': 'SERVER'}"

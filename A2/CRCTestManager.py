@@ -120,7 +120,7 @@ if __name__ == "__main__":
         'MessageParsing_8_multiple_messages':5, 
     }
     CRC_connection_tests = {
-        'ServerConnections_1_TwoServers':3,
+        #'ServerConnections_1_TwoServers':3,
         'ServerConnections_2_FourServers':4,
         #'ServerConnections_3_EightServers':5,
 
