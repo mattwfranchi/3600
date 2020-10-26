@@ -1,7 +1,11 @@
+# Matt Franchi # CPSC 3600 # Project 3 # Message Parsing # F20
+
+import re
+
+
 class MessageParser(object):
     def __init__(self):
         pass
-
     
     # This function should return a list of dictionaries. Each element in the list represents a separate 
     # message that has been parsed. Each dictionary represents the different elements of that message:
@@ -30,55 +34,53 @@ class MessageParser(object):
     # When processing data received from a socket, it's possible that the data contains multiple commands
     # We need to split the message into a list of commands, which are delimited by \r\n
     def parse_data(self, recv_data):
-        p_commands = []
+        # Sorry about using regex! I wanted to teach myself something new because I wasn't very familiar with it
 
-        commands = recv_data.decode().split("\r\n")
+        # list processed_commands to store parsed commands
+        processed_commands = []
 
-        for m in commands:
+        # split raw data into list of commands, delimited by "\r\n"
+        commands = re.split("\r\n",recv_data.decode())
+        if commands[-1] == '':
+            commands.pop(-1)
+
+        # For each loop for each message in commands
+        for msg in commands:
+            # message dictionary spec
             message = {
                 "prefix": None,
                 "command": None,
                 "params": None
             }
 
-            print("message:", m)
-
-            #if message has a prefix
-            if m.startswith(':'):
-                c = m.split(':')
-                l = c[1].split(' ')
-                message['prefix'] = l[0]
-                message['command'] = l[1]
-
-                if len(l) > 2:
-                    message['params'] = []
-                    x = len(l)
-                    l2 = l[2:x]
-                    for i in l2:
-                        if i == '':
-                            message['params'].append(c[-1])
-                            break
-                        else:
-                            message['params'].append(i)
-            #if message doesn't have a prefix
+            # prefix detection
+            # match must start with colon, and continues to match until whitespace is reached
+            if re.findall("(?<=^):(\S*)", msg):
+                prefix = re.findall("(?<=^):(\S*)", msg)[0]
             else:
-                l = m.split(' ')
-                c = m.split(':')
-                message['command'] = l[0]
+                prefix = None
 
-                if len(l) > 1:
-                    message['params'] = []
-                    x = len(l)
-                    l2 = l[1:x]
-                    for i in l2:
-                        if i.startswith(':'):
-                            message['params'].append(c[-1])
-                            break
-                        else:
-                            message['params'].append(i)
-                    
-                    
-            p_commands.append(message)
+            # command detection
+            # match must be ALL CAPS (at least 2 consecutive)
+            command = re.findall("[A-Z]{2,}", msg)[0]
 
+            # non-trailing parameters detection
+            # parameters must occur AFTER command, and continue until a colon is reached
+            params_string = re.findall("[A-Z]{2,}([^:]*)", msg)[0]
+            # split params_string into actual parameters, matching non-whitespace
+            params = re.findall("\S+", params_string)
 
-        return p_commands
+            # trailing parameter detection
+            # match everything after a colon that does NOT occur at the beginning of the string msg
+            if re.findall("(?<!^):(.*)", msg):
+                params.append(re.findall("(?<!^):(.*)", msg)[0])
+
+            # put data into dictionary
+            message["prefix"] = prefix
+            message["command"] = command
+            message["params"] = params
+
+            # append dictionary to processed commands list
+            processed_commands.append(message)
+
+        return processed_commands

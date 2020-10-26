@@ -5,100 +5,105 @@ Beginning test ServerConnections_3_EightServers
 *CMD.........	Starting --servername theshire.nz --port 7552 --info "Home of the hobbits" --log-file theshire.log
 [theshire.nz] 	Launching server theshire.nz...
 *CMD.........	Waiting... 0.5
+[theshire.nz] 	Configuring the server socket...
 [theshire.nz] 	Listening for new connections on port 7552
 *CMD.........	Starting --servername rivendale.nz --port 34657 --info "Elronds House" --log-file rivendale.log --connect_to_host theshire.nz --connect_to_port 7552
 [rivendale.nz] 	Launching server rivendale.nz...
 *CMD.........	Waiting... 0.5
+[rivendale.nz] 	Configuring the server socket...
+[rivendale.nz] 	Connecting to remote server theshire.nz:7552...
 [rivendale.nz] 	Listening for new connections on port 34657
-[theshire.nz] 	Received message "{'prefix': None, 'command': 'SERVER', 'params': ['rivendale.nz', '1', '"Elronds House"']}"
-[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'command': 'SERVER', 'params': ['theshire.nz', '1', '"Home of the hobbits"']}"
+[theshire.nz] 	Received message "{'params': ['rivendale.nz', '1', '"Elronds House"'], 'prefix': None, 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'params': ['theshire.nz', '1', '"Home of the hobbits"'], 'prefix': 'theshire.nz', 'command': 'SERVER'}"
 *CMD.........	Starting --servername mirkwood.nz --port 34571 --info "Wood of Greenleaves" --log-file mirkwood.log --connect_to_host rivendale.nz --connect_to_port 34657
 [mirkwood.nz] 	Launching server mirkwood.nz...
 *CMD.........	Waiting... 0.5
+[mirkwood.nz] 	Configuring the server socket...
+[mirkwood.nz] 	Connecting to remote server rivendale.nz:34657...
 [mirkwood.nz] 	Listening for new connections on port 34571
-[rivendale.nz] 	Received message "{'prefix': None, 'command': 'SERVER', 'params': ['mirkwood.nz', '1', '"Wood of Greenleaves"']}"
-:rivendale.nz SERVER theshire.nz 2 :"Home of the hobbits"
-for to mirkwood.nz
-[theshire.nz] 	Received message "{'prefix': 'rivendale.nz', 'command': 'SERVER', 'params': ['mirkwood.nz', '2', '"Wood of Greenleaves"']}"
-[mirkwood.nz] 	Received message "{'prefix': 'rivendale.nz', 'command': 'SERVER', 'params': ['rivendale.nz', '1', '"Elronds House"']}"
-[mirkwood.nz] 	Received message "{'prefix': 'rivendale.nz', 'command': 'SERVER', 'params': ['theshire.nz', '2', '"Home of the hobbits"']}"
-[rivendale.nz] 	Received message "{'prefix': 'rivendale.nz', 'command': 'SERVER', 'params': ['theshire.nz', '3', '"Home of the hobbits"']}"
+[rivendale.nz] 	Received message "{'params': ['mirkwood.nz', '1', '"Wood of Greenleaves"'], 'prefix': None, 'command': 'SERVER'}"
+[mirkwood.nz] 	Received message "{'params': ['rivendale.nz', '1', '"Elronds House"'], 'prefix': 'rivendale.nz', 'command': 'SERVER'}"
+[theshire.nz] 	Received message "{'params': ['mirkwood.nz', '2', '"Wood of Greenleaves"'], 'prefix': 'rivendale.nz', 'command': 'SERVER'}"
+[mirkwood.nz] 	Received message "{'params': ['theshire.nz', '1', '"Home of the hobbits"'], 'prefix': 'rivendale.nz', 'command': 'SERVER'}"
 *CMD.........	Starting --servername lothlorien.nz --port 6532 --info "The Golden Wood" --log-file lothlorien.log --connect_to_host mirkwood.nz --connect_to_port 34571
 [lothlorien.nz] 	Launching server lothlorien.nz...
 *CMD.........	Waiting... 0.5
+[lothlorien.nz] 	Configuring the server socket...
+[lothlorien.nz] 	Connecting to remote server mirkwood.nz:34571...
 [lothlorien.nz] 	Listening for new connections on port 6532
-[mirkwood.nz] 	Received message "{'prefix': None, 'command': 'SERVER', 'params': ['lothlorien.nz', '1', '"The Golden Wood"']}"
-:mirkwood.nz SERVER theshire.nz 4 :"Home of the hobbits"
-for to lothlorien.nz
-:mirkwood.nz SERVER rivendale.nz 2 :"Elronds House"
-for to lothlorien.nz
-[lothlorien.nz] 	Received message "{'prefix': 'mirkwood.nz', 'command': 'SERVER', 'params': ['mirkwood.nz', '1', '"Wood of Greenleaves"']}"
-[rivendale.nz] 	Received message "{'prefix': 'mirkwood.nz', 'command': 'SERVER', 'params': ['lothlorien.nz', '2', '"The Golden Wood"']}"
-[lothlorien.nz] 	Received message "{'prefix': 'mirkwood.nz', 'command': 'SERVER', 'params': ['rivendale.nz', '2', '"Elronds House"']}"
+[mirkwood.nz] 	Received message "{'params': ['lothlorien.nz', '1', '"The Golden Wood"'], 'prefix': None, 'command': 'SERVER'}"
+[lothlorien.nz] 	Received message "{'params': ['mirkwood.nz', '1', '"Wood of Greenleaves"'], 'prefix': 'mirkwood.nz', 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'params': ['lothlorien.nz', '2', '"The Golden Wood"'], 'prefix': 'mirkwood.nz', 'command': 'SERVER'}"
+[lothlorien.nz] 	Received message "{'params': ['theshire.nz', '2', '"Home of the hobbits"'], 'prefix': 'mirkwood.nz', 'command': 'SERVER'}"
+[theshire.nz] 	Received message "{'params': ['lothlorien.nz', '3', '"The Golden Wood"'], 'prefix': 'rivendale.nz', 'command': 'SERVER'}"
+[lothlorien.nz] 	Received message "{'params': ['rivendale.nz', '1', '"Elronds House"'], 'prefix': 'mirkwood.nz', 'command': 'SERVER'}"
 *CMD.........	Starting --servername isengard.nz --port 23581 --info "Orthanc" --log-file isengard.log --connect_to_host rivendale.nz --connect_to_port 34657
 [isengard.nz] 	Launching server isengard.nz...
 *CMD.........	Waiting... 0.5
+[isengard.nz] 	Configuring the server socket...
+[isengard.nz] 	Connecting to remote server rivendale.nz:34657...
 [isengard.nz] 	Listening for new connections on port 23581
-[rivendale.nz] 	Received message "{'prefix': None, 'command': 'SERVER', 'params': ['isengard.nz', '1', '"Orthanc"']}"
-:rivendale.nz SERVER lothlorien.nz 4 :"The Golden Wood"
-for to isengard.nz
-:rivendale.nz SERVER theshire.nz 5 :"Home of the hobbits"
-for to isengard.nz
-:rivendale.nz SERVER mirkwood.nz 2 :"Wood of Greenleaves"
-for to isengard.nz
-[isengard.nz] 	Received message "{'prefix': 'rivendale.nz', 'command': 'SERVER', 'params': ['rivendale.nz', '1', '"Elronds House"']}"
-[mirkwood.nz] 	Received message "{'prefix': 'rivendale.nz', 'command': 'SERVER', 'params': ['isengard.nz', '2', '"Orthanc"']}"
-[isengard.nz] 	Received message "{'prefix': 'rivendale.nz', 'command': 'SERVER', 'params': ['mirkwood.nz', '2', '"Wood of Greenleaves"']}"
-[lothlorien.nz] 	Received message "{'prefix': 'rivendale.nz', 'command': 'SERVER', 'params': ['isengard.nz', '3', '"Orthanc"']}"
+[rivendale.nz] 	Received message "{'params': ['isengard.nz', '1', '"Orthanc"'], 'prefix': None, 'command': 'SERVER'}"
+[mirkwood.nz] 	Received message "{'params': ['isengard.nz', '2', '"Orthanc"'], 'prefix': 'rivendale.nz', 'command': 'SERVER'}"
+[isengard.nz] 	Received message "{'params': ['rivendale.nz', '1', '"Elronds House"'], 'prefix': 'rivendale.nz', 'command': 'SERVER'}"
+[theshire.nz] 	Received message "{'params': ['isengard.nz', '2', '"Orthanc"'], 'prefix': 'rivendale.nz', 'command': 'SERVER'}"
+[lothlorien.nz] 	Received message "{'params': ['isengard.nz', '3', '"Orthanc"'], 'prefix': 'mirkwood.nz', 'command': 'SERVER'}"
+[isengard.nz] 	Received message "{'params': ['theshire.nz', '1', '"Home of the hobbits"'], 'prefix': 'rivendale.nz', 'command': 'SERVER'}"
+[isengard.nz] 	Received message "{'params': ['mirkwood.nz', '1', '"Wood of Greenleaves"'], 'prefix': 'rivendale.nz', 'command': 'SERVER'}"
+[isengard.nz] 	Received message "{'params': ['lothlorien.nz', '3', '"The Golden Wood"'], 'prefix': 'rivendale.nz', 'command': 'SERVER'}"
 *CMD.........	Starting --servername minastirith.nz --port 7653 --info "Tower of Guard' --log-file minastirith.log --connect_to_host theshire.nz --connect_to_port 7552
 [minastirith.nz] 	Launching server minastirith.nz...
 *CMD.........	Waiting... 0.5
+[minastirith.nz] 	Configuring the server socket...
+[minastirith.nz] 	Connecting to remote server theshire.nz:7552...
 [minastirith.nz] 	Listening for new connections on port 7653
-[theshire.nz] 	Received message "{'prefix': None, 'command': 'SERVER', 'params': ['minastirith.nz', '1', 'Tower']}"
-:theshire.nz SERVER rivendale.nz 2 :"Elronds House"
-for to minastirith.nz
-:theshire.nz SERVER mirkwood.nz 4 :"Wood of Greenleaves"
-for to minastirith.nz
-[minastirith.nz] 	Received message "{'prefix': 'theshire.nz', 'command': 'SERVER', 'params': ['theshire.nz', '1', '"Home of the hobbits"']}"
-[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'command': 'SERVER', 'params': ['minastirith.nz', '2', 'Tower']}"
-[minastirith.nz] 	Received message "{'prefix': 'theshire.nz', 'command': 'SERVER', 'params': ['mirkwood.nz', '4', '"Wood of Greenleaves"']}"
-[isengard.nz] 	Received message "{'prefix': 'theshire.nz', 'command': 'SERVER', 'params': ['minastirith.nz', '3', 'Tower']}"
-[mirkwood.nz] 	Received message "{'prefix': 'theshire.nz', 'command': 'SERVER', 'params': ['minastirith.nz', '3', 'Tower']}"
-[lothlorien.nz] 	Received message "{'prefix': 'theshire.nz', 'command': 'SERVER', 'params': ['minastirith.nz', '4', 'Tower']}"
+[theshire.nz] 	Received message "{'params': ['minastirith.nz', '1', 'Tower'], 'prefix': None, 'command': 'SERVER'}"
+[minastirith.nz] 	Received message "{'params': ['theshire.nz', '1', '"Home of the hobbits"'], 'prefix': 'theshire.nz', 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'params': ['minastirith.nz', '2', 'Tower'], 'prefix': 'theshire.nz', 'command': 'SERVER'}"
+[minastirith.nz] 	Received message "{'params': ['isengard.nz', '3', '"Orthanc"'], 'prefix': 'theshire.nz', 'command': 'SERVER'}"
+[isengard.nz] 	Received message "{'params': ['minastirith.nz', '3', 'Tower'], 'prefix': 'rivendale.nz', 'command': 'SERVER'}"
+[mirkwood.nz] 	Received message "{'params': ['minastirith.nz', '3', 'Tower'], 'prefix': 'rivendale.nz', 'command': 'SERVER'}"
+[minastirith.nz] 	Received message "{'params': ['rivendale.nz', '1', '"Elronds House"'], 'prefix': 'theshire.nz', 'command': 'SERVER'}"
+[lothlorien.nz] 	Received message "{'params': ['minastirith.nz', '4', 'Tower'], 'prefix': 'mirkwood.nz', 'command': 'SERVER'}"
+[minastirith.nz] 	Received message "{'params': ['lothlorien.nz', '4', '"The Golden Wood"'], 'prefix': 'theshire.nz', 'command': 'SERVER'}"
+[minastirith.nz] 	Received message "{'params': ['mirkwood.nz', '3', '"Wood of Greenleaves"'], 'prefix': 'theshire.nz', 'command': 'SERVER'}"
 *CMD.........	Starting --servername osgiliath.nz --port 24357 --info "Citadel of the Stars" --log-file osgiliath.log --connect_to_host minastirith.nz --connect_to_port 7653
 [osgiliath.nz] 	Launching server osgiliath.nz...
 *CMD.........	Waiting... 0.5
+[osgiliath.nz] 	Configuring the server socket...
+[osgiliath.nz] 	Connecting to remote server minastirith.nz:7653...
 [osgiliath.nz] 	Listening for new connections on port 24357
-[minastirith.nz] 	Received message "{'prefix': None, 'command': 'SERVER', 'params': ['osgiliath.nz', '1', '"Citadel of the Stars"']}"
-:minastirith.nz SERVER theshire.nz 2 :"Home of the hobbits"
-for to osgiliath.nz
-:minastirith.nz SERVER mirkwood.nz 6 :"Wood of Greenleaves"
-for to osgiliath.nz
-[osgiliath.nz] 	Received message "{'prefix': 'minastirith.nz', 'command': 'SERVER', 'params': ['minastirith.nz', '1', 'Tower']}"
-[theshire.nz] 	Received message "{'prefix': 'minastirith.nz', 'command': 'SERVER', 'params': ['osgiliath.nz', '2', '"Citadel of the Stars"']}"
-[osgiliath.nz] 	Received message "{'prefix': 'minastirith.nz', 'command': 'SERVER', 'params': ['mirkwood.nz', '6', '"Wood of Greenleaves"']}"
-[rivendale.nz] 	Received message "{'prefix': 'minastirith.nz', 'command': 'SERVER', 'params': ['osgiliath.nz', '3', '"Citadel of the Stars"']}"
-[isengard.nz] 	Received message "{'prefix': 'minastirith.nz', 'command': 'SERVER', 'params': ['osgiliath.nz', '4', '"Citadel of the Stars"']}"
-[mirkwood.nz] 	Received message "{'prefix': 'minastirith.nz', 'command': 'SERVER', 'params': ['osgiliath.nz', '4', '"Citadel of the Stars"']}"
-[lothlorien.nz] 	Received message "{'prefix': 'minastirith.nz', 'command': 'SERVER', 'params': ['osgiliath.nz', '5', '"Citadel of the Stars"']}"
+[minastirith.nz] 	Received message "{'params': ['osgiliath.nz', '1', '"Citadel of the Stars"'], 'prefix': None, 'command': 'SERVER'}"
+[osgiliath.nz] 	Received message "{'params': ['minastirith.nz', '1', 'Tower'], 'prefix': 'minastirith.nz', 'command': 'SERVER'}"
+[theshire.nz] 	Received message "{'params': ['osgiliath.nz', '2', '"Citadel of the Stars"'], 'prefix': 'minastirith.nz', 'command': 'SERVER'}"
+[osgiliath.nz] 	Received message "{'params': ['isengard.nz', '4', '"Orthanc"'], 'prefix': 'minastirith.nz', 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'params': ['osgiliath.nz', '3', '"Citadel of the Stars"'], 'prefix': 'theshire.nz', 'command': 'SERVER'}"
+[osgiliath.nz] 	Received message "{'params': ['theshire.nz', '1', '"Home of the hobbits"'], 'prefix': 'minastirith.nz', 'command': 'SERVER'}"
+[isengard.nz] 	Received message "{'params': ['osgiliath.nz', '4', '"Citadel of the Stars"'], 'prefix': 'rivendale.nz', 'command': 'SERVER'}"
+[osgiliath.nz] 	Received message "{'params': ['rivendale.nz', '2', '"Elronds House"'], 'prefix': 'minastirith.nz', 'command': 'SERVER'}"
+[mirkwood.nz] 	Received message "{'params': ['osgiliath.nz', '4', '"Citadel of the Stars"'], 'prefix': 'rivendale.nz', 'command': 'SERVER'}"
+[osgiliath.nz] 	Received message "{'params': ['lothlorien.nz', '5', '"The Golden Wood"'], 'prefix': 'minastirith.nz', 'command': 'SERVER'}"
+[lothlorien.nz] 	Received message "{'params': ['osgiliath.nz', '5', '"Citadel of the Stars"'], 'prefix': 'mirkwood.nz', 'command': 'SERVER'}"
+[osgiliath.nz] 	Received message "{'params': ['mirkwood.nz', '4', '"Wood of Greenleaves"'], 'prefix': 'minastirith.nz', 'command': 'SERVER'}"
 *CMD.........	Starting --servername barad-dur.nz --port 23579 --info "the Dark Tower" --log-file barad-dur.log --connect_to_host minastirith.nz --connect_to_port 7653
 [barad-dur.nz] 	Launching server barad-dur.nz...
 *CMD.........	Waiting... 0.5
+[barad-dur.nz] 	Configuring the server socket...
+[barad-dur.nz] 	Connecting to remote server minastirith.nz:7653...
 [barad-dur.nz] 	Listening for new connections on port 23579
-[minastirith.nz] 	Received message "{'prefix': None, 'command': 'SERVER', 'params': ['barad-dur.nz', '1', '"the Dark Tower"']}"
-:minastirith.nz SERVER theshire.nz 2 :"Home of the hobbits"
-for to barad-dur.nz
-:minastirith.nz SERVER mirkwood.nz 6 :"Wood of Greenleaves"
-for to barad-dur.nz
-:minastirith.nz SERVER osgiliath.nz 2 :"Citadel of the Stars"
-for to barad-dur.nz
-[barad-dur.nz] 	Received message "{'prefix': 'minastirith.nz', 'command': 'SERVER', 'params': ['minastirith.nz', '1', 'Tower']}"
-[theshire.nz] 	Received message "{'prefix': 'minastirith.nz', 'command': 'SERVER', 'params': ['barad-dur.nz', '2', '"the Dark Tower"']}"
-[osgiliath.nz] 	Received message "{'prefix': 'minastirith.nz', 'command': 'SERVER', 'params': ['barad-dur.nz', '2', '"the Dark Tower"']}"
-[barad-dur.nz] 	Received message "{'prefix': 'minastirith.nz', 'command': 'SERVER', 'params': ['osgiliath.nz', '2', '"Citadel of the Stars"']}"
-[rivendale.nz] 	Received message "{'prefix': 'minastirith.nz', 'command': 'SERVER', 'params': ['barad-dur.nz', '3', '"the Dark Tower"']}"
-[isengard.nz] 	Received message "{'prefix': 'minastirith.nz', 'command': 'SERVER', 'params': ['barad-dur.nz', '4', '"the Dark Tower"']}"
-[mirkwood.nz] 	Received message "{'prefix': 'minastirith.nz', 'command': 'SERVER', 'params': ['barad-dur.nz', '4', '"the Dark Tower"']}"
-[lothlorien.nz] 	Received message "{'prefix': 'minastirith.nz', 'command': 'SERVER', 'params': ['barad-dur.nz', '5', '"the Dark Tower"']}"
+[minastirith.nz] 	Received message "{'params': ['barad-dur.nz', '1', '"the Dark Tower"'], 'prefix': None, 'command': 'SERVER'}"
+[barad-dur.nz] 	Received message "{'params': ['minastirith.nz', '1', 'Tower'], 'prefix': 'minastirith.nz', 'command': 'SERVER'}"
+[theshire.nz] 	Received message "{'params': ['barad-dur.nz', '2', '"the Dark Tower"'], 'prefix': 'minastirith.nz', 'command': 'SERVER'}"
+[osgiliath.nz] 	Received message "{'params': ['barad-dur.nz', '2', '"the Dark Tower"'], 'prefix': 'minastirith.nz', 'command': 'SERVER'}"
+[barad-dur.nz] 	Received message "{'params': ['isengard.nz', '4', '"Orthanc"'], 'prefix': 'minastirith.nz', 'command': 'SERVER'}"
+[rivendale.nz] 	Received message "{'params': ['barad-dur.nz', '3', '"the Dark Tower"'], 'prefix': 'theshire.nz', 'command': 'SERVER'}"
+[barad-dur.nz] 	Received message "{'params': ['mirkwood.nz', '4', '"Wood of Greenleaves"'], 'prefix': 'minastirith.nz', 'command': 'SERVER'}"
+[isengard.nz] 	Received message "{'params': ['barad-dur.nz', '4', '"the Dark Tower"'], 'prefix': 'rivendale.nz', 'command': 'SERVER'}"
+[mirkwood.nz] 	Received message "{'params': ['barad-dur.nz', '4', '"the Dark Tower"'], 'prefix': 'rivendale.nz', 'command': 'SERVER'}"
+[barad-dur.nz] 	Received message "{'params': ['osgiliath.nz', '1', '"Citadel of the Stars"'], 'prefix': 'minastirith.nz', 'command': 'SERVER'}"
+[lothlorien.nz] 	Received message "{'params': ['barad-dur.nz', '5', '"the Dark Tower"'], 'prefix': 'mirkwood.nz', 'command': 'SERVER'}"
+[barad-dur.nz] 	Received message "{'params': ['theshire.nz', '1', '"Home of the hobbits"'], 'prefix': 'minastirith.nz', 'command': 'SERVER'}"
+[barad-dur.nz] 	Received message "{'params': ['rivendale.nz', '2', '"Elronds House"'], 'prefix': 'minastirith.nz', 'command': 'SERVER'}"
+[barad-dur.nz] 	Received message "{'params': ['lothlorien.nz', '5', '"The Golden Wood"'], 'prefix': 'minastirith.nz', 'command': 'SERVER'}"
 
-Test passed:False
+Test passed:True
