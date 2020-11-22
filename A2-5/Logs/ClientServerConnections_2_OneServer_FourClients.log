@@ -1,0 +1,31 @@
+
+##############################################
+Beginning test ClientServerConnections_2_OneServer_FourClients
+
+*CMD.........	Starting --servername theshire.nz --port 12356 --info 'Home of the hobbits' --log-file theshire.log
+[theshire.nz] 	Launching server theshire.nz...
+*CMD.........	Waiting... 0.5
+[theshire.nz] 	Configuring the server socket...
+[theshire.nz] 	Listening for new connections on port 12356
+*CMD.........	Starting --serverhost theshire.nz --serverport 12356 --nick samgamgee --hostname windows1 --realname 'Sam Gamgee' --log-file samgamgee.log
+[samgamgee] 	Launching client samgamgee@windows1...
+*CMD.........	Waiting... 0.5
+[theshire.nz] 	Received message "{'prefix': None, 'params': ['samgamgee', 'windows1', 'theshire.nz', "'Sam"], 'command': 'USER'}"
+[samgamgee] 	Received registration message: :theshire.nz 1 \r\n
+*CMD.........	Starting --serverhost theshire.nz --serverport 12356 --nick frodobaggins --hostname BrandyHall --realname 'Frodo Baggins' --log-file frodobaggins.log
+[frodobaggins] 	Launching client frodobaggins@BrandyHall...
+*CMD.........	Waiting... 0.5
+[theshire.nz] 	Received message "{'prefix': None, 'params': ['frodobaggins', 'BrandyHall', 'theshire.nz', "'Frodo"], 'command': 'USER'}"
+[frodobaggins] 	Received registration message: :theshire.nz 1 \r\n
+*CMD.........	Starting --serverhost theshire.nz --serverport 12356 --nick pippintook --hostname Windows3 --realname 'Peregrin Took' --log-file pippintook.log
+[pippintook] 	Launching client pippintook@Windows3...
+*CMD.........	Waiting... 0.5
+[theshire.nz] 	Received message "{'prefix': None, 'params': ['pippintook', 'Windows3', 'theshire.nz', "'Peregrin"], 'command': 'USER'}"
+[pippintook] 	Received registration message: :theshire.nz 1 \r\n
+*CMD.........	Starting --serverhost theshire.nz --serverport 12356 --nick merrybrandybuck --hostname Windows3 --realname 'Meriadoc Brandybuck' --log-file merrybrandybuck.log
+[merrybrandybuck] 	Launching client merrybrandybuck@Windows3...
+*CMD.........	Waiting... 0.5
+[theshire.nz] 	Received message "{'prefix': None, 'params': ['merrybrandybuck', 'Windows3', 'theshire.nz', "'Meriadoc"], 'command': 'USER'}"
+[merrybrandybuck] 	Received registration message: :theshire.nz 1 \r\n
+
+Test passed:True

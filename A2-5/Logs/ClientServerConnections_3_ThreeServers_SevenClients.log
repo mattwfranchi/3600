@@ -1,0 +1,78 @@
+
+##############################################
+Beginning test ClientServerConnections_3_ThreeServers_SevenClients
+
+*CMD.........	Starting --servername theshire.nz --port 34538 --info 'Home of the hobbits' --log-file theshire.log
+[theshire.nz] 	Launching server theshire.nz...
+*CMD.........	Waiting... 0.5
+[theshire.nz] 	Configuring the server socket...
+[theshire.nz] 	Listening for new connections on port 34538
+*CMD.........	Starting --servername rivendale.nz --port 35676 --info 'Elronds House' --log-file rivendale.log --connect_to_host theshire.nz --connect_to_port 34538
+[rivendale.nz] 	Launching server rivendale.nz...
+*CMD.........	Waiting... 0.5
+[rivendale.nz] 	Configuring the server socket...
+[rivendale.nz] 	Connecting to remote server theshire.nz:34538...
+[rivendale.nz] 	Listening for new connections on port 35676
+[theshire.nz] 	Received message "{'prefix': None, 'command': 'SERVER', 'params': ['rivendale.nz', '1', "'Elronds"]}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'command': 'SERVER', 'params': ['theshire.nz', '1', "'Home"]}"
+*CMD.........	Starting --servername minastirith.nz --port 23495 --info 'Tower of Guard' --log-file minastirith.log --connect_to_host theshire.nz --connect_to_port 34538
+[minastirith.nz] 	Launching server minastirith.nz...
+*CMD.........	Waiting... 0.5
+[minastirith.nz] 	Configuring the server socket...
+[minastirith.nz] 	Connecting to remote server theshire.nz:34538...
+[minastirith.nz] 	Listening for new connections on port 23495
+[theshire.nz] 	Received message "{'prefix': None, 'command': 'SERVER', 'params': ['minastirith.nz', '1', "'Tower"]}"
+[minastirith.nz] 	Received message "{'prefix': 'theshire.nz', 'command': 'SERVER', 'params': ['theshire.nz', '1', "'Home"]}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'command': 'SERVER', 'params': ['minastirith.nz', '2', "'Tower"]}"
+[minastirith.nz] 	Received message "{'prefix': 'theshire.nz', 'command': 'SERVER', 'params': ['rivendale.nz', '1', "'Elronds"]}"
+*CMD.........	Starting --serverhost theshire.nz --serverport 34538 --nick samgamgee --hostname windows1 --realname 'Sam Gamgee' --log-file samgamgee.log
+[samgamgee] 	Launching client samgamgee@windows1...
+*CMD.........	Waiting... 1
+[theshire.nz] 	Received message "{'prefix': None, 'command': 'USER', 'params': ['samgamgee', 'windows1', 'theshire.nz', "'Sam"]}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'command': 'USER', 'params': ['samgamgee', 'windows1', 'theshire.nz', "'Sam"]}"
+[minastirith.nz] 	Received message "{'prefix': 'theshire.nz', 'command': 'USER', 'params': ['samgamgee', 'windows1', 'theshire.nz', "'Sam"]}"
+[samgamgee] 	Received registration message: :theshire.nz 1 \r\n
+*CMD.........	Starting --serverhost rivendale.nz --serverport 35676 --nick elrond --hostname windows1 --realname 'Elrond Peredhel' --log-file elrond.log
+[elrond] 	Launching client elrond@windows1...
+*CMD.........	Waiting... 1
+[rivendale.nz] 	Received message "{'prefix': None, 'command': 'USER', 'params': ['elrond', 'windows1', 'rivendale.nz', "'Elrond"]}"
+[theshire.nz] 	Received message "{'prefix': 'rivendale.nz', 'command': 'USER', 'params': ['elrond', 'windows1', 'rivendale.nz', "'Elrond"]}"
+[elrond] 	Received registration message: :rivendale.nz 1 \r\n
+[minastirith.nz] 	Received message "{'prefix': 'theshire.nz', 'command': 'USER', 'params': ['elrond', 'windows1', 'rivendale.nz', "'Elrond"]}"
+*CMD.........	Starting --serverhost theshire.nz --serverport 34538 --nick frodobaggins --hostname BrandyHall --realname 'Frodo Baggins' --log-file frodobaggins.log
+[frodobaggins] 	Launching client frodobaggins@BrandyHall...
+*CMD.........	Waiting... 1
+[theshire.nz] 	Received message "{'prefix': None, 'command': 'USER', 'params': ['frodobaggins', 'BrandyHall', 'theshire.nz', "'Frodo"]}"
+[minastirith.nz] 	Received message "{'prefix': 'theshire.nz', 'command': 'USER', 'params': ['frodobaggins', 'BrandyHall', 'theshire.nz', "'Frodo"]}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'command': 'USER', 'params': ['frodobaggins', 'BrandyHall', 'theshire.nz', "'Frodo"]}"
+[frodobaggins] 	Received registration message: :theshire.nz 1 \r\n
+*CMD.........	Starting --serverhost theshire.nz --serverport 34538 --nick pippintook --hostname Windows3 --realname 'Peregrin Took' --log-file pippintook.log
+[pippintook] 	Launching client pippintook@Windows3...
+*CMD.........	Waiting... 1
+[theshire.nz] 	Received message "{'prefix': None, 'command': 'USER', 'params': ['pippintook', 'Windows3', 'theshire.nz', "'Peregrin"]}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'command': 'USER', 'params': ['pippintook', 'Windows3', 'theshire.nz', "'Peregrin"]}"
+[minastirith.nz] 	Received message "{'prefix': 'theshire.nz', 'command': 'USER', 'params': ['pippintook', 'Windows3', 'theshire.nz', "'Peregrin"]}"
+[pippintook] 	Received registration message: :theshire.nz 1 \r\n
+*CMD.........	Starting --serverhost minastirith.nz --serverport 23495 --nick denethor --hostname windows1 --realname 'Denethor, Steward of Gondor' --log-file denethor.log
+[denethor] 	Launching client denethor@windows1...
+*CMD.........	Waiting... 1
+[minastirith.nz] 	Received message "{'prefix': None, 'command': 'USER', 'params': ['denethor', 'windows1', 'minastirith.nz', "'Denethor"]}"
+[theshire.nz] 	Received message "{'prefix': 'minastirith.nz', 'command': 'USER', 'params': ['denethor', 'windows1', 'minastirith.nz', "'Denethor"]}"
+[denethor] 	Received registration message: :minastirith.nz 1 \r\n
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'command': 'USER', 'params': ['denethor', 'windows1', 'minastirith.nz', "'Denethor"]}"
+*CMD.........	Starting --serverhost minastirith.nz --serverport 23495 --nick aragorn --hostname windows1 --realname 'Aragorn II Elessar' --log-file aragorn.log
+[aragorn] 	Launching client aragorn@windows1...
+*CMD.........	Waiting... 1
+[minastirith.nz] 	Received message "{'prefix': None, 'command': 'USER', 'params': ['aragorn', 'windows1', 'minastirith.nz', "'Aragorn"]}"
+[theshire.nz] 	Received message "{'prefix': 'minastirith.nz', 'command': 'USER', 'params': ['aragorn', 'windows1', 'minastirith.nz', "'Aragorn"]}"
+[aragorn] 	Received registration message: :minastirith.nz 1 \r\n
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'command': 'USER', 'params': ['aragorn', 'windows1', 'minastirith.nz', "'Aragorn"]}"
+*CMD.........	Starting --serverhost theshire.nz --serverport 34538 --nick merrybrandybuck --hostname Windows3 --realname 'Meriadoc Brandybuck' --log-file merrybrandybuck.log
+[merrybrandybuck] 	Launching client merrybrandybuck@Windows3...
+*CMD.........	Waiting... 1
+[theshire.nz] 	Received message "{'prefix': None, 'command': 'USER', 'params': ['merrybrandybuck', 'Windows3', 'theshire.nz', "'Meriadoc"]}"
+[rivendale.nz] 	Received message "{'prefix': 'theshire.nz', 'command': 'USER', 'params': ['merrybrandybuck', 'Windows3', 'theshire.nz', "'Meriadoc"]}"
+[minastirith.nz] 	Received message "{'prefix': 'theshire.nz', 'command': 'USER', 'params': ['merrybrandybuck', 'Windows3', 'theshire.nz', "'Meriadoc"]}"
+[merrybrandybuck] 	Received registration message: :theshire.nz 1 \r\n
+
+Test passed:True
