@@ -1,0 +1,7 @@
+-----  Sliding Window Network Simulator Version -------- 
+
+A @ 0.1081: Received from Layer 5: aaaaaaaaaa
+A @ 0.1081: Passing to the Network Layer
+A @ 0.3418: Received from Layer 5: bbbbbbbbbb
+A @ 0.3418: Passing to the Network Layer
+A @ 0.3418: CORRUPTING PACKET!

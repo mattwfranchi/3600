@@ -1,0 +1,30 @@
+-----  Sliding Window Network Simulator Version -------- 
+
+A @ 27.7641: Received from Layer 5: aaaaaaaaaa
+A @ 27.7641: Passing to the Network Layer
+B @ 28.1124: Received from Layer 3
+B @ 67.4947: Received from Layer 5: bbbbbbbbbb
+B @ 67.4947: Passing to the Network Layer
+B @ 67.4947: LOSING PACKET!
+A @ 103.2349: Received from Layer 5: cccccccccc
+A @ 103.2349: Passing to the Network Layer
+A @ 103.2349: LOSING PACKET!
+A @ 121.7329: Received from Layer 5: dddddddddd
+A @ 121.7329: Passing to the Network Layer
+A @ 121.7329: LOSING PACKET!
+A @ 135.6512: Received from Layer 5: eeeeeeeeee
+A @ 135.6512: Passing to the Network Layer
+B @ 135.8836: Received from Layer 3
+B @ 149.2717: Received from Layer 5: ffffffffff
+B @ 149.2717: Passing to the Network Layer
+B @ 149.2717: LOSING PACKET!
+A @ 166.2316: Received from Layer 5: gggggggggg
+B @ 197.7685: Received from Layer 5: hhhhhhhhhh
+B @ 197.7685: Passing to the Network Layer
+A @ 197.9715: Received from Layer 3
+B @ 204.2405: Received from Layer 5: iiiiiiiiii
+B @ 204.2405: Passing to the Network Layer
+A @ 204.6759: Received from Layer 3
+B @ 209.7308: Received from Layer 5: jjjjjjjjjj
+Simulator terminated at time 209.73082318695796 after sending 10 msgs from layer5
+

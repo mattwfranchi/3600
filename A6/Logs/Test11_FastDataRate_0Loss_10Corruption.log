@@ -1,0 +1,21 @@
+-----  Sliding Window Network Simulator Version -------- 
+
+A @ 0.0052: Received from Layer 5: aaaaaaaaaa
+A @ 0.0052: Passing to the Network Layer
+A @ 0.0174: Received from Layer 5: bbbbbbbbbb
+A @ 0.0174: Passing to the Network Layer
+B @ 0.0217: Received from Layer 5: cccccccccc
+B @ 0.0217: Passing to the Network Layer
+B @ 0.0324: Received from Layer 5: dddddddddd
+B @ 0.0324: Passing to the Network Layer
+B @ 0.0488: Received from Layer 5: eeeeeeeeee
+B @ 0.0488: Passing to the Network Layer
+B @ 0.0509: Received from Layer 5: ffffffffff
+B @ 0.0509: Passing to the Network Layer
+A @ 0.0651: Received from Layer 5: gggggggggg
+A @ 0.0651: Passing to the Network Layer
+B @ 0.0766: Received from Layer 5: hhhhhhhhhh
+B @ 0.0855: Received from Layer 5: iiiiiiiiii
+A @ 0.1029: Received from Layer 5: jjjjjjjjjj
+A @ 0.1029: Passing to the Network Layer
+A @ 0.1029: CORRUPTING PACKET!

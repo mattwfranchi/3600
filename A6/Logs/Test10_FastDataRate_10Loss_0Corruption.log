@@ -1,0 +1,46 @@
+-----  Sliding Window Network Simulator Version -------- 
+
+B @ 0.0159: Received from Layer 5: aaaaaaaaaa
+B @ 0.0159: Passing to the Network Layer
+A @ 0.0327: Received from Layer 5: bbbbbbbbbb
+A @ 0.0327: Passing to the Network Layer
+A @ 0.0327: LOSING PACKET!
+B @ 0.0482: Received from Layer 5: cccccccccc
+B @ 0.0482: Passing to the Network Layer
+A @ 0.0488: Received from Layer 5: dddddddddd
+A @ 0.0488: Passing to the Network Layer
+B @ 0.0616: Received from Layer 5: eeeeeeeeee
+B @ 0.0616: Passing to the Network Layer
+B @ 0.0766: Received from Layer 5: ffffffffff
+B @ 0.0766: Passing to the Network Layer
+B @ 0.0791: Received from Layer 5: gggggggggg
+B @ 0.0939: Received from Layer 5: hhhhhhhhhh
+A @ 0.1124: Received from Layer 5: iiiiiiiiii
+A @ 0.1124: Passing to the Network Layer
+A @ 0.1172: Received from Layer 5: jjjjjjjjjj
+A @ 0.1172: Passing to the Network Layer
+A @ 0.1341: Received from Layer 5: kkkkkkkkkk
+A @ 0.1378: Received from Layer 5: llllllllll
+A @ 0.1524: Received from Layer 5: mmmmmmmmmm
+A @ 0.1578: Received from Layer 5: nnnnnnnnnn
+B @ 0.1726: Received from Layer 5: oooooooooo
+B @ 0.1735: Received from Layer 5: pppppppppp
+B @ 0.1871: Received from Layer 5: qqqqqqqqqq
+B @ 0.1915: Received from Layer 5: rrrrrrrrrr
+B @ 0.1995: Received from Layer 5: ssssssssss
+A @ 0.2031: Received from Layer 5: tttttttttt
+A @ 0.2112: Received from Layer 5: uuuuuuuuuu
+A @ 0.2155: Received from Layer 5: vvvvvvvvvv
+A @ 0.2205: Received from Layer 3
+A @ 0.2304: Received from Layer 5: wwwwwwwwww
+B @ 0.2341: Received from Layer 5: xxxxxxxxxx
+A @ 0.2400: Received from Layer 5: yyyyyyyyyy
+A @ 0.2511: Received from Layer 5: zzzzzzzzzz
+A @ 0.4158: Received from Layer 3
+B @ 0.9870: Received from Layer 3
+A @ 1.1854: Received from Layer 3
+A @ 1.7254: Received from Layer 3
+B @ 1.9586: Received from Layer 3
+B @ 2.5034: Received from Layer 3
+Simulator terminated at time 2.5034328214232326 after sending 26 msgs from layer5
+
