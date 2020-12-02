@@ -35,12 +35,4 @@ A @ 0.2146: Received from Layer 5: xxxxxxxxxx
 B @ 0.2206: Received from Layer 5: yyyyyyyyyy
 A @ 0.2220: Received from Layer 5: zzzzzzzzzz
 A @ 0.3192: Received from Layer 3
-A @ 0.5467: Received from Layer 3
-B @ 0.6708: Received from Layer 3
-B @ 0.8901: Received from Layer 3
-A @ 1.0647: Received from Layer 3
-B @ 1.4846: Received from Layer 3
-B @ 1.6036: Received from Layer 3
-A @ 2.5187: Received from Layer 3
-Simulator terminated at time 2.518698530249287 after sending 26 msgs from layer5
-
+A @ 0.3192: Starting Timer

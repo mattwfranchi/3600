@@ -5,3 +5,18 @@ A @ 0.1081: Passing to the Network Layer
 A @ 0.3418: Received from Layer 5: bbbbbbbbbb
 A @ 0.3418: Passing to the Network Layer
 A @ 0.3418: CORRUPTING PACKET!
+B @ 0.5776: Received from Layer 3
+B @ 0.5887: Received from Layer 5: cccccccccc
+B @ 0.5887: Passing to the Network Layer
+B @ 0.5887: Starting Timer
+B @ 0.8093: Received from Layer 3
+B @ 0.8093: Starting Timer
+A @ 1.0797: Received from Layer 5: dddddddddd
+A @ 1.0797: Passing to the Network Layer
+A @ 1.3829: Received from Layer 5: eeeeeeeeee
+A @ 1.3829: Passing to the Network Layer
+A @ 1.4161: Received from Layer 5: ffffffffff
+B @ 1.4607: Received from Layer 5: gggggggggg
+B @ 1.4607: Passing to the Network Layer
+A @ 1.6824: Received from Layer 3
+A @ 1.6824: Starting Timer

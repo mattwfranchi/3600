@@ -1,6 +1,6 @@
 from Simulator import Simulator, EventEntity, Packet
 from enum import Enum
-from struct import pack, unpack
+from struct import pack, unpack, unpack_from
 
 # In this class you will implement a full-duplex Go-Back-N client. Full-duplex means that this client can 
 # both send and receive data. You are responsible for implementing a Go-Back-N protocol in a simulated
@@ -78,7 +78,7 @@ class GBNHost():
         # Sender properties
         self.timer_interval = timer_interval        # The duration the timer lasts before triggering
         self.window_size = window_size              # The size of the seq/ack window
-        self.window_base = 0                        # The last ACKed packet. This starts at 0 because no packets 
+        self.window_base = 0                        # The last ACKed packet. This starts at 0 because no packets
                                                     # have been ACKed
         self.next_seq_num = 1                       # The SEQ number that will be used next
         self.unACKed_buffer = {}                    # A buffer that stores all sent but unACKed packets
@@ -90,32 +90,28 @@ class GBNHost():
 
         # NOTE: Do not edit/remove any of the code in __init__ ABOVE this line. You need to edit the line below this
         #       and may add other functionality here if so desired
-        self.last_ACK_pkt = None                    # TODO: The last ACK pkt sent. You should initialize this to a
+        self.last_ACK_pkt = self.make_pkt(ack_flag=True)                  # TODO: The last ACK pkt sent. You should initialize this to a
                                                     # packet with ACK = 0 in case an error occurs on the first packet received. 
-                                                    # If that occurs, this default ACK can be sent in response
-   
+        #self.receive_from_network_layer( self.last_ACK_pkt)                                           # If that occurs, this default ACK can be sent in response
+
+        # OFFSET?
+        #self.next_seq_num = 0
+        #self.expected_seq_number = 0
 
     # TODO: Complete this function
     # This function implements the SENDING functionality. It should implement retransmit-on-timeout. 
     # Refer to the GBN sender flowchart for details about how this function should be implemented
-
-    # receive_from_application_layer(payload)
-    # if(next_seq_num < window_base + window_size):
-    #   unACKed_buffer[next_seq_num] = make_pkt(next_seq_num, payload)
-    #   pass_to_network_layer(unACKed_buffer[next_seq_num])
-    #   if(window_base ==  next_seq_num):
-    #       start_timer()
-    #   next_seq_num++
-    # else:
-    #   app_layer_buffer.append(payload)
-
     def receive_from_application_layer(self, payload):
-        if self.next_seq_num < self.window_base + self.window_size:
-            self.unACKed_buffer[self.next_seq_num] = Packet([self.next_seq_num,0,0,0,0],payload,len(payload))
-            self.simulator.pass_to_network_layer(self.entity,self.unACKed_buffer[self.next_seq_num])
-            if(self.window_base == self.next_seq_num):
+        if self.next_seq_num < (self.window_base+1 + self.window_size):
+            # need to revise this line
+            self.unACKed_buffer[self.next_seq_num] = self.make_pkt(seq_num=self.next_seq_num,payload=payload,ack_flag=False)
+            self.simulator.pass_to_network_layer(self.entity,self.unACKed_buffer[self.next_seq_num],False)
+
+            if(self.window_base+1 == self.next_seq_num):
                 self.simulator.start_timer(self.entity,self.timer_interval)
+
             self.next_seq_num += 1
+
         else:
             self.app_layer_buffer.append(payload)
 
@@ -128,61 +124,59 @@ class GBNHost():
     # Refer to the GBN receiver flowchart for details about how to implement responding to data pkts, and
     # refer to the GBN sender flowchart for details about how to implement responidng to ACKs
 
-    # receive_from_network_layer(bytes) and not corrupt(bytes)
-    # window_base = get_ack_num(bytes)+1
-    # stop_timer()
-    # if(window_base != next_seq_num):
-    #   start_timer()
-    #   while(len(app_layer_buffer) > 0 and next_seq_num < window_base + window_size):
-    #       payload = app_layer_buffer.pop()
-    #       unACKed_buffer[next_seq_num] = make_pkt(next_seq_num, payload)
-    #       pass_to_network_layer(unACKed_buffer[next_seq_num])
-    #       if(window_base == next_seq_num):
-    #           start_timer()
-    #       next_seq_sum++
 
-    # receive_from_network_layer(bytes) and not corrupt(bytes) and get_seq_num(bytes) == expected_seq_sm
-    # data = extract_payload(bytes)
-    # pass_to_application_layer(data)
-    # last_ack = make_pkt(expected_seq_num, ACK)
-    # pass_to_network_layer(last_ack)
-    # expected_seq_num++;
+    def receive_from_network_layer(self, bytes):
+        seq_num, ack_num, checksum, ackflag = unpack_from("!iiH?", bytes)
 
-    def receive_from_network_layer(self, byte_data):
-        if byte_data.ackflag:
-            if self.corrupt(byte_data):
-                self.window_base = 0
-                self.next_seq_num = 1
-                self.unACKed_buffer = {}
-                self.app_layer_buffer = []
-            else:
-                self.window_base = byte_data.acknum+1
+        # CASE: GBN Sender
+        if ackflag is True:
+            # SUB-CASE: data is not corrupt
+            #print(self.corrupt(bytes))
+            if not self.corrupt(bytes):
+                #print("data is not corrupt")
+                self.window_base = ack_num
                 self.simulator.stop_timer(self.entity)
-                if self.window_base != self.next_seq_num:
+                if self.window_base+1 != self.next_seq_num:
                     self.simulator.start_timer(self.entity,self.timer_interval)
-                while len(self.app_layer_buffer) > 0 and self.next_seq_num < self.window_base + self.window_size:
+                while len(self.app_layer_buffer) > 0 and self.next_seq_num < self.window_base+1 + self.window_size:
                     payload = self.app_layer_buffer.pop()
-                    self.unACKed_buffer[self.next_seq_num] = Packet([self.next_seq_num,0,0,0,0],payload,None)
-                    self.simulator.pass_to_network_layer(self.entity,self.unACKed_buffer[self.next_seq_num])
-                    if(self.window_base == self.next_seq_num):
+                    self.unACKed_buffer[self.next_seq_num] = self.make_pkt(seq_num=self.next_seq_num,ack_flag=False,payload=payload)
+                    self.simulator.pass_to_network_layer(self.entity,self.unACKed_buffer[self.next_seq_num],False)
+                    if self.window_base+1 == self.next_seq_num:
                         self.simulator.start_timer(self.entity,self.timer_interval)
                     self.next_seq_num += 1
-
-        else:
-            if self.corrupt(byte_data):
-                self.simulator.pass_to_network_layer(self.last_ACK_pkt)
-
-
+            # SUB-CASE: data is corrupt
             else:
-                if byte_data.seqnum == self.expected_seq_number:
-                    data = byte_data.payload
-                    self.simulator.pass_to_application_layer(data)
-                    # need to revise this line
-                    last_ack = Packet([self.expected_seq_number,0,0,0,0],None,None)
-                    self.simulator.pass_to_network_layer(last_ack)
-                    self.expected_seq_number += 1
-                else:
-                    self.simulator.pass_to_network_layer(self.last_ACK_pkt)
+                pass
+        # CASE: GBN Receiver
+        elif ackflag is False:
+            # FLAG: ACK flags for first, third case might need to be True
+            if self.corrupt(bytes):
+                self.simulator.pass_to_network_layer(self.entity,self.last_ACK_pkt,True)
+            elif not self.corrupt(bytes) and seq_num == self.expected_seq_number:
+                # From ONENOTE slides - Go-Back-N Sender
+                #self.simulator.stop_timer(self.entity)
+
+                data = self.extract_payload(bytes)
+                self.simulator.pass_to_application_layer(self.entity,data)
+                # flag this line
+                self.last_ACK_pkt = self.make_pkt(ack_flag=True, ack_num=self.expected_seq_number)
+
+                self.simulator.pass_to_network_layer(self.entity, self.last_ACK_pkt,True)
+
+                self.expected_seq_number += 1
+            elif seq_num != self.expected_seq_number:
+                # From ONENOTE slides - Go-Back-N Sender
+                #self.simulator.start_timer(self.entity,self.timer_interval)
+                self.simulator.pass_to_network_layer(self.entity, self.last_ACK_pkt,True)
+
+
+
+
+
+
+
+
 
 
 
@@ -192,26 +186,76 @@ class GBNHost():
     # received in the expected time frame. All unACKed data should be resent, and the timer restarted
     def timer_interrupt(self):
         self.simulator.start_timer(self.entity,self.timer_interval)
-        for i in range(self.next_seq_num,self.next_seq_num+1,1):
-            self.simulator.pass_to_network_layer(self.unACKed_buffer[i])
+        # need to be self.next_seq_num + 1 ?
+        for i in range(self.window_base+1,self.next_seq_num,1):
+             self.simulator.pass_to_network_layer(self.entity, self.unACKed_buffer[i],False)
 
-    def corrupt(self, byte_data):
+        #for key in self.unACKed_buffer.keys():
+            #self.simulator.pass_to_network_layer(self.entity,self.unACKed_buffer[key],False)
+
+    def corrupt(self, bytes):
+        # calculate
         try:
-            payload = byte_data.payload
-        except:
+            seq_num, ack_num, cs, ack_flag, payload_length = unpack_from("!iiH?i",bytes)
+            format = "!iiH?i" + str(payload_length) + "s"
+            seq_num, ack_num, checksum, ackflag, payload_length, payload = unpack_from(format, bytes)
+        except Exception as e:
+            print(e)
             return True
-        else:
-            return False
 
-    def extract_payload(self, byte_data):
-        return byte_data.payload
+        if len(payload) == 0 and ack_flag is False:
+            return True
+
+        bytes_raw = pack("!ii?i%is" % len(payload), seq_num, ack_num, ack_flag, len(payload), payload)
+        checksum_to_check = self.checksum(bytes_raw)
+        #print(cs != checksum_to_check)
+        return cs != checksum_to_check
 
 
-    def checksum(self, pkt):
+    def checksum(self, byte_data):
+        #seq_num, ack_num, ack_flag, length_of_payload
         tot = 0
-        for i in range(0, len(pkt), 2):
-            word = pkt[i] << 8 | pkt[i+1]
+
+        if (len(byte_data)) % 2 != 0:
+            byte_data += bytes(1)
+
+        for i in range(0, len(byte_data), 2):
+            word = byte_data[i] << 8 | byte_data[i+1]
             tot += word
             tot = (tot & 0xffff) + (tot >> 16)
-        return ~tot
-        # need to check if the packed data has an odd number of bytes
+
+        return (2**16)-abs(~tot)
+
+    # need to check if the packed data has an odd number of bytes
+    def extract_payload(self, bytes):
+        seq_num, ack_num, checksum, ackflag, payload_length = unpack_from("!iiH?i", bytes)
+        if payload_length > 0:
+            format = "!iiH?i"+str(payload_length)+"s"
+            seq_num, ack_num, checksum, ackflag, payload_length, payload = unpack_from(format, bytes)
+            payload = payload.decode('utf-8')
+        else:
+            payload = ""
+        return payload
+
+    def get_seq_num(self,bytes):
+        seq_num = unpack_from("!i",bytes)
+        return seq_num
+
+
+
+    def get_ack_num(self,bytes):
+        seq_num, ack_num = unpack_from("!ii", bytes)
+        return ack_num
+
+    def make_pkt(self,seq_num=0,ack_num = 0, ack_flag = False, payload=""):
+        payload = bytes(payload,"utf-8")
+
+        bytes_without_checksum =  pack("!ii?i%is" % len(payload),seq_num,ack_num,ack_flag,len(payload),payload)
+        checksum = self.checksum(bytes_without_checksum)
+
+        bytes_with_checksum = pack("!iiH?i%is" % len(payload), seq_num,ack_num,checksum,ack_flag,len(payload),payload)
+        return bytes_with_checksum
+
+
+
+
