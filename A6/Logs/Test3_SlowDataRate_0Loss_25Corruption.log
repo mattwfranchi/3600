@@ -5,7 +5,6 @@ B @ 8.1092: Passing to the Network Layer: [SEQ: 1, ACK: 0, ACK_FLAG: False, CKSU
 B @ 8.1092: CORRUPTING PACKET!
 B @ 8.1092: Starting Timer
 A @ 8.2509: Received from Layer 3
-unpack_from requires a buffer of at least 16409 bytes
 A @ 8.2509: Passing to the Network Layer: [SEQ: 0, ACK: 0, ACK_FLAG: True, CKSUM: 65279, LEN: 0]
 B @ 8.4009: Received from Layer 3: [SEQ: 0, ACK: 0, ACK_FLAG: True, CKSUM: 65279, LEN: 0]
 B @ 8.5595: Received from Layer 5: bbbbbbbbbb
@@ -67,7 +66,6 @@ A @ 40.7073: Passing to application: dddddddddd
 A @ 40.7073: Passing to the Network Layer: [SEQ: 0, ACK: 4, ACK_FLAG: True, CKSUM: 65275, LEN: 0]
 A @ 40.7073: CORRUPTING PACKET!
 B @ 40.9210: Received from Layer 3
-unpack_from requires a buffer of at least 47 bytes
 B @ 40.9210: Passing to the Network Layer: [SEQ: 0, ACK: 0, ACK_FLAG: True, CKSUM: 65279, LEN: 0]
 A @ 41.7445: Received from Layer 3: [SEQ: 0, ACK: 0, ACK_FLAG: True, CKSUM: 65279, LEN: 0]
 B @ 42.8882: Timer Interrupt

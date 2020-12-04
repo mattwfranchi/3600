@@ -182,7 +182,7 @@ class GBNHost():
 
         # CASE: next sequence number is out of range, append to application layer buffer
         else:
-            self.app_layer_buffer.insert(0,payload)
+            self.app_layer_buffer.append(payload)
 
     # TODO: Complete this function
     # This function implements the RECEIVING functionality. This function will be more complex that
@@ -196,7 +196,7 @@ class GBNHost():
     def receive_from_network_layer(self, bytes):
         seq_num, ack_num, checksum, ackflag = unpack_from("!iiH?", bytes)
         # CASE: GBN SENDER // responds to ACKs
-        if self.corrupt(bytes) or bytes is None:
+        if self.checksum(bytes) or bytes is None:
             self.simulator.pass_to_network_layer(self.entity,self.last_ACK_pkt,True)
 
         elif ackflag is True:

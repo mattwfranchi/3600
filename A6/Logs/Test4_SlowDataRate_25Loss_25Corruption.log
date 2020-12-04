@@ -77,7 +77,6 @@ A @ 97.0744: Received from Layer 5: ffffffffff
 A @ 97.0744: Passing to the Network Layer: [SEQ: 5, ACK: 0, ACK_FLAG: False, CKSUM: 62970, LEN: 10, PAYLOAD: ffffffffff]
 A @ 97.0744: LOSING PACKET!
 B @ 97.2353: Received from Layer 3
-unpack_from requires a buffer of at least 262169 bytes
 B @ 97.2353: Passing to the Network Layer: [SEQ: 0, ACK: 3, ACK_FLAG: True, CKSUM: 65276, LEN: 0]
 A @ 98.2079: Received from Layer 3: [SEQ: 0, ACK: 3, ACK_FLAG: True, CKSUM: 65276, LEN: 0]
 A @ 99.9341: Timer Interrupt
